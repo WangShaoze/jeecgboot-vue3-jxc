@@ -1,0 +1,100 @@
+import { defHttp } from '/@/utils/http/axios';
+import { useMessage } from '/@/hooks/web/useMessage';
+
+const { createConfirm } = useMessage();
+
+enum Api {
+  list = '/jxcmanage/tBGoods/list',
+  save = '/jxcmanage/tBGoods/add',
+  edit = '/jxcmanage/tBGoods/edit',
+  deleteOne = '/jxcmanage/tBGoods/delete',
+  deleteBatch = '/jxcmanage/tBGoods/deleteBatch',
+  //importExcel = '/jxcmanage/tBGoods/importExcel',
+  importExcel = '/jxcmanage/tBGoods/importPandianExcel',
+  //exportXls = '/jxcmanage/tBGoods/exportXls',
+  exportXls = '/jxcmanage/tBGoods/exportPandDianXls',
+  inbound = '/jxcmanage/tBGoods/inbound',
+  batchInbound = '/jxcmanage/tBGoods/batchInbound',
+  selectKm = '/jxcmanage/tBGoods/selectKm',
+  batchSelectKm = '/jxcmanage/tBGoods/batchSelectKm',
+}
+
+/**
+ * 导出api
+ * @param params
+ */
+export const getExportUrl = Api.exportXls;
+
+/**
+ * 导入api
+ */
+export const getImportUrl = Api.importExcel;
+
+/**
+ * 列表接口
+ * @param params
+ */
+export const list = (params) => defHttp.get({ url: Api.list, params });
+
+/**
+ *
+ * 入库
+ * @param params
+ */
+export const inboundApi = (params) => defHttp.get({ url: Api.inbound, params });
+export const batchInboundApi = (params) => defHttp.get({ url: Api.batchInbound, params });
+
+/**
+ * 选择库位
+ * */
+export const selectKmApi = (params) => defHttp.get({ url: Api.selectKm, params });
+export const batchSelectKmApi = (params) => defHttp.get({ url: Api.batchSelectKm, params });
+
+/**
+ * 删除单个
+ * @param params
+ * @param handleSuccess
+ */
+export const deleteOne = (params, handleSuccess) => {
+  return defHttp.delete({ url: Api.deleteOne, params }, { joinParamsToUrl: true }).then(() => {
+    handleSuccess();
+  });
+};
+
+/**
+ * 批量删除
+ * @param params
+ * @param handleSuccess
+ */
+export const batchDelete = (params, handleSuccess) => {
+  createConfirm({
+    iconType: 'warning',
+    title: '确认删除',
+    content: '是否删除选中数据',
+    okText: '确认',
+    cancelText: '取消',
+    onOk: () => {
+      return defHttp
+        .delete(
+          {
+            url: Api.deleteBatch,
+            data: params,
+          },
+          { joinParamsToUrl: true }
+        )
+        .then(() => {
+          handleSuccess();
+        });
+    },
+  });
+};
+
+/**
+ * 保存或者更新
+ * @param params
+ * @param isUpdate
+ */
+export const saveOrUpdate = (params, isUpdate) => {
+  let url = isUpdate ? Api.edit : Api.save;
+  return defHttp.post({ url: url, params }, { isTransformResponse: false });
+};
