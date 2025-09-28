@@ -115,7 +115,7 @@
         <j-upload-button type="primary" v-auth="'jxcmanage:t_b_goods:importPandianExcel'" preIcon="ant-design:import-outlined" @click="onImportXls"
           >导入
         </j-upload-button>
-        <a-button type="primary" preIcon="ant-design:retweet-outlined" @click="batchHandleUpdateOriginPrice">全表更新 </a-button>
+        <a-button type="primary" preIcon="ant-design:retweet-outlined" @click="batchHandleUpdateOriginPrice">全表货品成本更新 </a-button>
         <a-dropdown v-if="selectedRowKeys.length > 0">
           <template #overlay>
             <a-menu>
