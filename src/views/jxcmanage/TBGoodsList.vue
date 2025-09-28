@@ -108,28 +108,38 @@
     <BasicTable @register="registerTable" :rowSelection="rowSelection">
       <!--插槽:table标题-->
       <template #tableTitle>
-        <a-button type="primary" v-auth="'jxcmanage:t_b_goods:add'" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增 </a-button>
+        <!--        <a-button type="primary" v-auth="'jxcmanage:t_b_goods:add'" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增 </a-button>-->
         <a-button type="primary" v-auth="'jxcmanage:t_b_goods:exportPandDianXls'" preIcon="ant-design:export-outlined" @click="onExportXlsx">
           导出
         </a-button>
         <j-upload-button type="primary" v-auth="'jxcmanage:t_b_goods:importPandianExcel'" preIcon="ant-design:import-outlined" @click="onImportXls"
           >导入
         </j-upload-button>
+        <a-button type="primary" preIcon="ant-design:retweet-outlined" @click="batchHandleUpdateOriginPrice">全表更新 </a-button>
         <a-dropdown v-if="selectedRowKeys.length > 0">
           <template #overlay>
             <a-menu>
-              <a-menu-item key="1" @click="batchHandleDelete">
+              <a-menu-item key="1" @click="batchHandleUpdateQueryAddress">
+                <Icon icon="ant-design:sync-outlined"></Icon>
+                溯源码更新
+              </a-menu-item>
+              <a-menu-item key="2" @click="batchHandleSelectKm">
+                <Icon icon="ant-design:inbox-outlined"></Icon>
+                批量入库
+              </a-menu-item>
+              <a-menu-item key="3" @click="batchHandleUpdateOriginPrice">
+                <Icon icon="ant-design:retweet-outlined"></Icon>
+                批量更新货品成本
+              </a-menu-item>
+              <a-menu-item key="4" @click="batchHandleDelete">
                 <Icon icon="ant-design:delete-outlined"></Icon>
                 删除
               </a-menu-item>
-              <a-menu-item key="2" @click="batchHandleSelectKm">
-                <Icon icon="ant-design:delete-outlined"></Icon>
-                批量选库位
-              </a-menu-item>
-              <a-menu-item key="3" @click="batchHandleInbound">
-                <Icon icon="ant-design:delete-outlined"></Icon>
-                批量入库
-              </a-menu-item>
+
+              <!--              <a-menu-item key="3" @click="batchHandleInbound">-->
+              <!--                <Icon icon="ant-design:delete-outlined"></Icon>-->
+              <!--                批量入库-->
+              <!--              </a-menu-item>-->
             </a-menu>
           </template>
           <a-button v-auth="'jxcmanage:t_b_goods:deleteBatch'"
@@ -138,7 +148,7 @@
           </a-button>
         </a-dropdown>
         <!-- 高级查询 -->
-        <super-query :config="superQueryConfig" @search="handleSuperQuery" />
+        <!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
       </template>
       <!--操作栏-->
       <template #action="{ record }">
@@ -183,6 +193,8 @@
     batchInboundApi,
     selectKmApi,
     batchSelectKmApi,
+    batchUpdateQueryAddressApi,
+    updateOriginPriceApi,
   } from './TBGoods.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import TBGoodsModal from './components/TBGoodsModal.vue';
@@ -259,6 +271,13 @@
   }
 
   /**
+   * batchHandleUpdateOriginPrice
+   * */
+  async function batchHandleUpdateOriginPrice() {
+    await updateOriginPriceApi({ goodIds: selectedRowKeys.value.join(',') }, handleSuccess);
+  }
+
+  /**
    * 新增事件
    */
   function handleAdd() {
@@ -315,6 +334,7 @@
       id: recordId.value,
       kmId: kmFormData.kmId,
     });
+    handleInbound();
     handleSuccess();
   }
 
@@ -363,6 +383,8 @@ console.log(kmFormData.kmId);*/
       ids: ids,
       kmId: kmFormData.kmId,
     });
+    batchHandleInbound();
+    handleSuccess();
   }
 
   /**
@@ -372,6 +394,16 @@ console.log(kmFormData.kmId);*/
     let ids = selectedRowKeys.value.join(',');
     console.log(ids);
     await batchInboundApi({
+      ids: ids,
+    });
+  }
+
+  /**
+   * 溯源码更新
+   */
+  async function batchHandleUpdateQueryAddress() {
+    let ids = selectedRowKeys.value.join(',');
+    await batchUpdateQueryAddressApi({
       ids: ids,
     });
   }
@@ -464,13 +496,13 @@ console.log(kmFormData.kmId);*/
         onClick: handleDetail.bind(null, record),
       },
       {
-        label: '选库位',
+        label: '入库',
         onClick: handleSelectKm.bind(null, record),
       },
-      {
-        label: '入库',
-        onClick: handleInbound.bind(null, record),
-      },
+      /*{
+label: '入库',
+onClick: handleInbound.bind(null, record),
+},*/
       {
         label: '删除',
         popConfirm: {

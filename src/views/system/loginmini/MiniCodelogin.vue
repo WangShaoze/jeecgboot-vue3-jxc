@@ -4,7 +4,7 @@
       <div class="aui-form">
         <div class="aui-image">
           <div class="aui-image-text" style="font-size: 24px; font-weight: bold; color: white">
-            进销存管理后台
+            泊兰玺货品进销存管理平台
             <!-- img :src="adTextImg" alt="" / -->
           </div>
         </div>
@@ -76,7 +76,7 @@
   import { QrCode } from '/@/components/Qrcode/index';
   import ThirdModal from '/@/views/sys/login/ThirdModal.vue';
   import logoImg from '/@/assets/loginmini/icon/jeecg_logo.png';
-  import adTextImg from '/@/assets/loginmini/icon/jeecg_ad_text.png';
+  import adTextImg from '/src/assets/loginmini/icon/jeecg_ad_text.png';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { GithubFilled, WechatFilled, DingtalkCircleFilled, createFromIconfontCN } from '@ant-design/icons-vue';

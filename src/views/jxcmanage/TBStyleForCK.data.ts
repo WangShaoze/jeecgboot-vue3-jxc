@@ -1,25 +1,16 @@
-import { BasicColumn } from '/@/components/Table';
-import { FormSchema } from '/@/components/Table';
-import { rules } from '/@/utils/helper/validator';
-import { render } from '/@/utils/common/renderUtils';
-import { JVxeTypes, JVxeColumn } from '/@/components/jeecg/JVxeTable/types';
-import { getWeekMonthQuarterYear } from '/@/utils';
+import { BasicColumn, FormSchema } from '/@/components/Table';
+import { JVxeColumn, JVxeTypes } from '/@/components/jeecg/JVxeTable/types';
 //列表数据
 export const columns: BasicColumn[] = [
   {
     title: '款号',
     align: 'center',
-    dataIndex: 'styleNo',
+    dataIndex: 'newStyleNo',
   },
   {
     title: '款式名称',
     align: 'center',
     dataIndex: 'itemName',
-  },
-  /*{
-    title: '客户',
-    align: 'center',
-    dataIndex: 'customAccount',
   },
   {
     title: '金工费',
@@ -27,26 +18,46 @@ export const columns: BasicColumn[] = [
     dataIndex: 'goldProcessFee',
   },
   {
-    title: '银工费',
+    title: '银工费/g',
     align: 'center',
-    dataIndex: 'sliverProcessFee',
-  },*/
+    dataIndex: 'sliverProcessFeeEachGram',
+  },
+  {
+    title: '银工费/件',
+    align: 'center',
+    dataIndex: 'sliverProcessFeeEachPiece',
+  },
+  {
+    title: '证书费',
+    align: 'center',
+    dataIndex: 'certificateFee',
+  },
+  {
+    title: '辅料费',
+    align: 'center',
+    dataIndex: 'auxiliaryMaterialFee',
+  },
+  {
+    title: '单克工费(经销)',
+    align: 'center',
+    dataIndex: 'singleGramDistributorCost',
+  },
+  {
+    title: '单克工费(代理)',
+    align: 'center',
+    dataIndex: 'singleGramAgentCost',
+  },
 ];
 //查询数据
 export const searchFormSchema: FormSchema[] = [
   {
     label: '款号',
-    field: 'styleNo',
+    field: 'newStyleNo',
     component: 'JInput',
   },
   {
     label: '款式名称',
     field: 'itemName',
-    component: 'JInput',
-  },
-  {
-    label: '客户',
-    field: 'customAccount',
     component: 'JInput',
   },
 ];
@@ -54,17 +65,12 @@ export const searchFormSchema: FormSchema[] = [
 export const formSchema: FormSchema[] = [
   {
     label: '款号',
-    field: 'styleNo',
+    field: 'newStyleNo',
     component: 'Input',
   },
   {
     label: '款式名称',
     field: 'itemName',
-    component: 'Input',
-  },
-  /*{
-    label: '客户',
-    field: 'customAccount',
     component: 'Input',
   },
   {
@@ -73,10 +79,35 @@ export const formSchema: FormSchema[] = [
     component: 'InputNumber',
   },
   {
-    label: '银工费',
-    field: 'sliverProcessFee',
+    label: '银工费/g',
+    field: 'sliverProcessFeeEachGram',
     component: 'InputNumber',
-  },*/
+  },
+  {
+    label: '银工费/件',
+    field: 'sliverProcessFeeEachPiece',
+    component: 'InputNumber',
+  },
+  {
+    label: '证书费',
+    field: 'certificateFee',
+    component: 'InputNumber',
+  },
+  {
+    label: '辅料费',
+    field: 'auxiliaryMaterialFee',
+    component: 'InputNumber',
+  },
+  {
+    label: '单克工费(经销)',
+    field: 'singleGramDistributorCost',
+    component: 'InputNumber',
+  },
+  {
+    label: '单克工费(代理)',
+    field: 'singleGramAgentCost',
+    component: 'InputNumber',
+  },
   // TODO 主键隐藏字段，目前写死为ID
   {
     label: '',
@@ -102,6 +133,11 @@ export const tBGoodsForCKColumns: BasicColumn[] = [
     title: '款名',
     align: 'center',
     dataIndex: 'itemName',
+  },
+  {
+    title: '客户款号',
+    align: 'center',
+    dataIndex: 'customerStyleNo',
   },
   {
     title: '货号',
@@ -154,14 +190,29 @@ export const tBGoodsForCKColumns: BasicColumn[] = [
     dataIndex: 'sequenceNo',
   },
   {
-    title: '原价',
+    title: '成本',
     align: 'center',
     dataIndex: 'originalPrice',
   },
   {
-    title: '参考售价',
+    title: '参考售价(经销商)',
     align: 'center',
-    dataIndex: 'referenceSellingPrice',
+    dataIndex: 'distributorReferenceSellingPrice',
+  },
+  {
+    title: '参考售价(代理商)',
+    align: 'center',
+    dataIndex: 'agentReferenceSellingPrice',
+  },
+  {
+    title: '金成本大盘',
+    align: 'center',
+    dataIndex: 'goldCostMarketPrice',
+  },
+  {
+    title: '银成本大盘',
+    align: 'center',
+    dataIndex: 'sliverCostMarketPrice',
   },
   {
     title: '状态（合/残）',
@@ -200,8 +251,17 @@ export const tBGoodsForCKJVxeColumns: JVxeColumn[] = [
     validateRules: [{ required: true, message: '${title}不能为空' }],
   },
   {
-    title: '客户款号',
+    title: '款号',
     key: 'newStyleNo',
+    type: JVxeTypes.input,
+    width: '200px',
+    placeholder: '请输入${title}',
+    defaultValue: '',
+    validateRules: [{ required: true, message: '${title}不能为空' }],
+  },
+  {
+    title: '客户款号',
+    key: 'customerStyleNo',
     type: JVxeTypes.input,
     width: '200px',
     placeholder: '请输入${title}',
@@ -290,7 +350,7 @@ export const tBGoodsForCKJVxeColumns: JVxeColumn[] = [
     validateRules: [{ required: true, message: '${title}不能为空' }],
   },
   {
-    title: '原价',
+    title: '成本',
     key: 'originalPrice',
     type: JVxeTypes.inputNumber,
     width: '200px',
@@ -298,12 +358,34 @@ export const tBGoodsForCKJVxeColumns: JVxeColumn[] = [
     defaultValue: '',
   },
   {
-    title: '参考售价',
-    key: 'referenceSellingPrice',
+    title: '参考售价(经销商)',
+    key: 'distributorReferenceSellingPrice',
     type: JVxeTypes.inputNumber,
     width: '200px',
     placeholder: '请输入${title}',
     defaultValue: '',
+  },
+  {
+    title: '参考售价(代理商)',
+    key: 'agentReferenceSellingPrice',
+    type: JVxeTypes.inputNumber,
+    width: '200px',
+    placeholder: '请输入${title}',
+    defaultValue: '',
+  },
+  {
+    title: '金成本大盘',
+    key: 'goldCostMarketPrice',
+    type: JVxeTypes.inputNumber,
+    width: '200px',
+    placeholder: '请输入${title}',
+  },
+  {
+    title: '银成本大盘',
+    key: 'sliverCostMarketPrice',
+    type: JVxeTypes.inputNumber,
+    width: '200px',
+    placeholder: '请输入${title}',
   },
   {
     title: '状态（合/残）',
@@ -345,7 +427,6 @@ export const tBGoodsForCKJVxeColumns: JVxeColumn[] = [
       { source: 'id', target: 'kmId' },
       { source: 'km', target: 'kmValue' },
     ],
-
     width: '200px',
     placeholder: '请输入${title}',
     defaultValue: '',
@@ -354,7 +435,7 @@ export const tBGoodsForCKJVxeColumns: JVxeColumn[] = [
 
 // 高级查询数据
 export const superQuerySchema = {
-  styleNo: { title: '款号', order: 0, view: 'text', type: 'string' },
+  newStyleNo: { title: '款号', order: 0, view: 'text', type: 'string' },
   itemName: { title: '款式名称', order: 1, view: 'text', type: 'string' },
   customAccount: { title: '客户', order: 2, view: 'text', type: 'string' },
   goldProcessFee: { title: '金工费', order: 3, view: 'number', type: 'number' },
@@ -366,7 +447,7 @@ export const superQuerySchema = {
     fields: {
       styleCategory: { title: '款式类别', order: 0, view: 'text', type: 'string' },
       productNo: { title: '货号', order: 1, view: 'text', type: 'string' },
-      newStyleNo: { title: '客户款号', order: 2, view: 'text', type: 'string' },
+      customerStyleNo: { title: '客户款号', order: 2, view: 'text', type: 'string' },
       itemName: { title: '客胚名称', order: 3, view: 'text', type: 'string' },
       silverWeight: { title: '银重', order: 4, view: 'number', type: 'number' },
       goldWeight: { title: '金重', order: 5, view: 'number', type: 'number' },
@@ -376,25 +457,26 @@ export const superQuerySchema = {
       seal: { title: '字印', order: 9, view: 'text', type: 'string' },
       queryUrl: { title: '查询地址', order: 10, view: 'text', type: 'string' },
       sequenceNo: { title: '序号', order: 11, view: 'number', type: 'number' },
-      originalPrice: { title: '原价', order: 12, view: 'number', type: 'number' },
-      referenceSellingPrice: { title: '参考售价', order: 13, view: 'number', type: 'number' },
+      originalPrice: { title: '成本', order: 12, view: 'number', type: 'number' },
+      distributorReferenceSellingPrice: { title: '参考售价(经销商)', order: 13, view: 'number', type: 'number' },
+      agentReferenceSellingPrice: { title: '参考售价(代理商)', order: 14, view: 'number', type: 'number' },
       status: {
         title: '状态（合/残）',
-        order: 14,
+        order: 15,
         view: 'radio',
         type: 'string',
         dictCode: 'jxc_pandian_status',
       },
       inboundStatus: {
         title: '库存状态',
-        order: 15,
+        order: 16,
         view: 'radio',
         type: 'string',
         dictCode: 'jxc_inbound_status',
       },
       salesStatus: {
         title: '销售状态',
-        order: 16,
+        order: 17,
         view: 'radio',
         type: 'string',
         dictCode: 'jxc_sales_status',
@@ -409,6 +491,8 @@ export const superQuerySchema = {
         destFields: 'kmValue',
         popupMulti: false,
       },
+      goldCostMarketPrice: { title: '金成本大盘', order: 19, view: 'number', type: 'number' },
+      sliverCostMarketPrice: { title: '银成本大盘', order: 20, view: 'number', type: 'number' },
     },
   },
 };

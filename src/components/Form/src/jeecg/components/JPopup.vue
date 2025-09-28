@@ -68,7 +68,7 @@
       inSearch: propTypes.bool.def(false),
     },
     emits: ['update:value', 'register', 'popUpChange', 'focus'],
-    setup(props, { emit, refs }) {
+    setup(props, { emit, }) {
       const { createMessage } = useMessage();
       const attrs = useAttrs();
       //pop是否展示

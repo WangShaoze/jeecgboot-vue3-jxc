@@ -23,7 +23,7 @@ export const columns: BasicColumn[] = [
   {
     title: '款号',
     align: 'center',
-    dataIndex: 'styleNo',
+    dataIndex: 'newStyleNo',
   },
   {
     title: '款式类别',
@@ -38,7 +38,7 @@ export const columns: BasicColumn[] = [
   {
     title: '客户款号',
     align: 'center',
-    dataIndex: 'newStyleNo',
+    dataIndex: 'customerStyleNo',
   },
   {
     title: '客胚名称',
@@ -132,10 +132,10 @@ export const superQuerySchema = {
   salesOrderNo: { title: '销售单号', order: 0, view: 'text', type: 'string' },
   salesDate: { title: '销售日期', order: 1, view: 'datetime', type: 'string' },
   orderNo: { title: '订单号', order: 2, view: 'text', type: 'string' },
-  styleNo: { title: '款号', order: 3, view: 'text', type: 'string' },
+  newStyleNo: { title: '款号', order: 3, view: 'text', type: 'string' },
   styleCategory: { title: '款式类别', order: 4, view: 'text', type: 'string' },
   productNo: { title: '货号', order: 5, view: 'text', type: 'string' },
-  newStyleNo: { title: '客户款号', order: 6, view: 'text', type: 'string' },
+  customerStyleNo: { title: '客户款号', order: 6, view: 'text', type: 'string' },
   itemName: { title: '客胚名称', order: 7, view: 'text', type: 'string' },
   silverWeight: { title: '银重', order: 8, view: 'number', type: 'number' },
   goldWeight: { title: '金重', order: 9, view: 'number', type: 'number' },

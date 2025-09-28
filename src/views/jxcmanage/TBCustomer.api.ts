@@ -1,18 +1,18 @@
-import {defHttp} from '/@/utils/http/axios';
+import { defHttp } from '/@/utils/http/axios';
 import { useMessage } from "/@/hooks/web/useMessage";
 
 const { createConfirm } = useMessage();
 
 enum Api {
-  list = '/jxcmanage/tBOutboundForFH/list',
-  save='/jxcmanage/tBOutboundForFH/add',
-  edit='/jxcmanage/tBOutboundForFH/edit',
-  deleteOne = '/jxcmanage/tBOutboundForFH/delete',
-  deleteBatch = '/jxcmanage/tBOutboundForFH/deleteBatch',
-  importExcel = '/jxcmanage/tBOutboundForFH/importExcel',
-  exportXls = '/jxcmanage/tBOutboundForFH/exportXls',
-  tBGoodsForFHList = '/jxcmanage/tBOutboundForFH/queryTBGoodsForFHByMainId',
+  list = '/jxcmanage/tBCustomer/list',
+  save='/jxcmanage/tBCustomer/add',
+  edit='/jxcmanage/tBCustomer/edit',
+  deleteOne = '/jxcmanage/tBCustomer/delete',
+  deleteBatch = '/jxcmanage/tBCustomer/deleteBatch',
+  importExcel = '/jxcmanage/tBCustomer/importExcel',
+  exportXls = '/jxcmanage/tBCustomer/exportXls',
 }
+
 /**
  * 导出api
  * @param params
@@ -23,29 +23,28 @@ export const getExportUrl = Api.exportXls;
  * 导入api
  */
 export const getImportUrl = Api.importExcel;
-/**
- * 子表单查询接口
- * @param params
- */
-export const queryTBGoodsForFH = Api.tBGoodsForFHList
+
 /**
  * 列表接口
  * @param params
  */
-export const list = (params) =>
-  defHttp.get({url: Api.list, params});
+export const list = (params) => defHttp.get({ url: Api.list, params });
 
 /**
  * 删除单个
+ * @param params
+ * @param handleSuccess
  */
 export const deleteOne = (params,handleSuccess) => {
   return defHttp.delete({url: Api.deleteOne, params}, {joinParamsToUrl: true}).then(() => {
     handleSuccess();
   });
 }
+
 /**
  * 批量删除
  * @param params
+ * @param handleSuccess
  */
 export const batchDelete = (params, handleSuccess) => {
   createConfirm({
@@ -61,17 +60,13 @@ export const batchDelete = (params, handleSuccess) => {
     }
   });
 }
+
 /**
  * 保存或者更新
  * @param params
+ * @param isUpdate
  */
 export const saveOrUpdate = (params, isUpdate) => {
   let url = isUpdate ? Api.edit : Api.save;
-  return defHttp.post({url: url, params});
+  return defHttp.post({ url: url, params }, { isTransformResponse: false });
 }
-/**
- * 子表列表接口
- * @param params
- */
-export const tBGoodsForFHList = (params) =>
-  defHttp.get({url: Api.tBGoodsForFHList, params},{isTransformResponse:false});

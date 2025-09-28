@@ -17,6 +17,11 @@ enum Api {
   batchInbound = '/jxcmanage/tBGoods/batchInbound',
   selectKm = '/jxcmanage/tBGoods/selectKm',
   batchSelectKm = '/jxcmanage/tBGoods/batchSelectKm',
+  batchUpdateQueryAddress = '/jxcmanage/tBGoods/batchUpdateQueryAddress',
+  updateOriginPrice = '/jxcmanage/tBGoods/updateOriginPrice',
+  getBarData = '/jxcmanage/tBGoods/getBarData',
+  getMarketPrice = '/jxcmanage/tBGoods/getMarketPrice',
+  judgeSecurityCode = '/jxcmanage/tBGoods/judgeSecurityCode',
 }
 
 /**
@@ -35,6 +40,9 @@ export const getImportUrl = Api.importExcel;
  * @param params
  */
 export const list = (params) => defHttp.get({ url: Api.list, params });
+export const getBarDataApi = (params) => defHttp.get({ url: Api.getBarData, params });
+export const getMarketPriceApi = () => defHttp.get({ url: Api.getMarketPrice });
+export const judgeSecurityCodeApi = (params) => defHttp.get({ url: Api.judgeSecurityCode, params });
 
 /**
  *
@@ -43,6 +51,11 @@ export const list = (params) => defHttp.get({ url: Api.list, params });
  */
 export const inboundApi = (params) => defHttp.get({ url: Api.inbound, params });
 export const batchInboundApi = (params) => defHttp.get({ url: Api.batchInbound, params });
+export const batchUpdateQueryAddressApi = (params) =>
+  defHttp.get({
+    url: Api.batchUpdateQueryAddress,
+    params,
+  });
 
 /**
  * 选择库位
@@ -97,4 +110,15 @@ export const batchDelete = (params, handleSuccess) => {
 export const saveOrUpdate = (params, isUpdate) => {
   let url = isUpdate ? Api.edit : Api.save;
   return defHttp.post({ url: url, params }, { isTransformResponse: false });
+};
+
+/**
+ * 批量更新货品成本
+ * @param params
+ * @param handleSuccess
+ */
+export const updateOriginPriceApi = (params, handleSuccess) => {
+  return defHttp.post({ url: Api.updateOriginPrice, params }, { joinParamsToUrl: true }).then(() => {
+    handleSuccess();
+  });
 };

@@ -17,9 +17,8 @@
         <div class="aui-container">
           <div class="aui-form">
             <div class="aui-image">
-              <div class="aui-image-text" style="font-size: 56px; font-weight: bold; color: white">
-                进销存管理后台
-                <!-- img :src="adTextImg" / -->
+              <div class="aui-image-text" style="font-size: 36px; font-weight: bold; color: white">
+                泊兰玺货品进销存管理平台
               </div>
             </div>
             <div class="aui-formBox">
@@ -165,7 +164,7 @@
   import MiniRegister from './MiniRegister.vue';
   import MiniCodelogin from './MiniCodelogin.vue';
   import logoImg from '/@/assets/loginmini/icon/jeecg_logo.png';
-  import adTextImg from '/@/assets/loginmini/icon/jeecg_ad_text.png';
+  import adTextImg from '/src/assets/loginmini/icon/jeecg_ad_text.png';
   import { AppLocalePicker, AppDarkModeToggle } from '/@/components/Application';
   import { useLocaleStore } from '/@/store/modules/locale';
   import { useDesign } from '/@/hooks/web/useDesign';

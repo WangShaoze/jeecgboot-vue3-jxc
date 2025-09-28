@@ -4,7 +4,7 @@
       <div class="aui-form">
         <div class="aui-image">
           <div class="aui-image-text" style="font-size: 24px; font-weight: bold; color: white">
-            进销存管理后台
+            泊兰玺货品进销存管理平台
             <!-- img :src="adTextImg" / -->
           </div>
         </div>
@@ -104,7 +104,7 @@
   import { useMessage } from '/@/hooks/web/useMessage';
   import { getCaptcha, passwordChange, phoneVerify } from '/@/api/sys/user';
   import logoImg from '/@/assets/loginmini/icon/jeecg_logo.png';
-  import adTextImg from '/@/assets/loginmini/icon/jeecg_ad_text.png';
+  import adTextImg from '/src/assets/loginmini/icon/jeecg_ad_text.png';
   import successImg from '/@/assets/loginmini/icon/icon-success.png';
   import CaptchaModal from '@/components/jeecg/captcha/CaptchaModal.vue';
   import { useModal } from '@/components/Modal';

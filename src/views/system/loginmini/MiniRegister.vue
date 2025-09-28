@@ -4,7 +4,7 @@
       <div class="aui-form">
         <div class="aui-image">
           <div class="aui-image-text" style="font-size: 24px; font-weight: bold; color: white">
-            进销存管理后台
+            泊兰玺货品进销存管理平台
             <!-- img :src="jeecgAdTextImg" alt="" / -->
           </div>
         </div>
@@ -106,7 +106,7 @@
   import { SmsEnum } from '/@/views/sys/login/useLogin';
   import { useMessage } from '/@/hooks/web/useMessage';
   import logoImg from '/@/assets/loginmini/icon/jeecg_logo.png';
-  import jeecgAdTextImg from '/@/assets/loginmini/icon/jeecg_ad_text.png';
+  import jeecgAdTextImg from '/src/assets/loginmini/icon/jeecg_ad_text.png';
   import eyeKImg from '/@/assets/loginmini/icon/icon-eye-k.png';
   import eyeGImg from '/@/assets/loginmini/icon/icon-eye-g.png';
   import { useI18n } from '/@/hooks/web/useI18n';

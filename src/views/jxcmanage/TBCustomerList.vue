@@ -4,50 +4,6 @@
     <div class="jeecg-basic-table-form-container">
       <a-form ref="formRef" @keyup.enter.native="searchQuery" :model="queryParam" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-row :gutter="24">
-        <a-col :lg="6">
-        <a-form-item name="itemNumber">
-        <template #label><span title="货号">货号</span></template>
-            <JInput v-model:value="queryParam.itemNumber"/>
-        </a-form-item>
-        </a-col>
-        <a-col :lg="6">
-        <a-form-item name="certificateNumber">
-        <template #label><span title="证书编号">证书编号</span></template>
-            <JInput v-model:value="queryParam.certificateNumber"/>
-        </a-form-item>
-        </a-col>
-          <template v-if="toggleSearchStatus">
-          <a-col :lg="6">
-          <a-form-item name="productName">
-          <template #label><span title="商品名称">商品名称</span></template>
-              <JInput v-model:value="queryParam.productName"/>
-          </a-form-item>
-          </a-col>
-          <a-col :lg="6">
-          <a-form-item name="shape">
-          <template #label><span title="形状">形状</span></template>
-              <JInput v-model:value="queryParam.shape"/>
-          </a-form-item>
-          </a-col>
-          <a-col :lg="6">
-          <a-form-item name="color">
-          <template #label><span title="颜色">颜色</span></template>
-              <JInput v-model:value="queryParam.color"/>
-          </a-form-item>
-          </a-col>
-          </template>
-          <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <span style="float: left; overflow: hidden" class="table-page-search-submitButtons">
-              <a-col :lg="6">
-                <a-button type="primary" preIcon="ant-design:search-outlined" @click="searchQuery">查询</a-button>
-                <a-button type="primary" preIcon="ant-design:reload-outlined" @click="searchReset" style="margin-left: 8px">重置</a-button>
-                <a @click="toggleSearchStatus = !toggleSearchStatus" style="margin-left: 8px">
-                  {{ toggleSearchStatus ? '收起' : '展开' }}
-                  <Icon :icon="toggleSearchStatus ? 'ant-design:up-outlined' : 'ant-design:down-outlined'" />
-                </a>
-              </a-col>
-            </span>
-          </a-col>
         </a-row>
       </a-form>
     </div>
@@ -55,9 +11,9 @@
     <BasicTable @register="registerTable" :rowSelection="rowSelection">
       <!--插槽:table标题-->
       <template #tableTitle>
-<!--        <a-button type="primary" v-auth="'jxcmanage:t_b_query_product:add'"  @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增</a-button>-->
-        <a-button  type="primary" v-auth="'jxcmanage:t_b_query_product:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls"> 导出</a-button>
-        <j-upload-button  type="primary" v-auth="'jxcmanage:t_b_query_product:importExcel'"  preIcon="ant-design:import-outlined" @click="onImportXls">导入</j-upload-button>
+        <a-button type="primary" v-auth="'jxcmanage:t_b_customer:add'"  @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增</a-button>
+        <a-button  type="primary" v-auth="'jxcmanage:t_b_customer:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls"> 导出</a-button>
+        <j-upload-button  type="primary" v-auth="'jxcmanage:t_b_customer:importExcel'"  preIcon="ant-design:import-outlined" @click="onImportXls">导入</j-upload-button>
         <a-dropdown v-if="selectedRowKeys.length > 0">
           <template #overlay>
             <a-menu>
@@ -67,12 +23,12 @@
               </a-menu-item>
             </a-menu>
           </template>
-          <a-button v-auth="'jxcmanage:t_b_query_product:deleteBatch'">批量操作
+          <a-button v-auth="'jxcmanage:t_b_customer:deleteBatch'">批量操作
             <Icon icon="mdi:chevron-down"></Icon>
           </a-button>
         </a-dropdown>
         <!-- 高级查询 -->
-<!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
+        <super-query :config="superQueryConfig" @search="handleSuperQuery" />
       </template>
       <!--操作栏-->
       <template #action="{ record }">
@@ -82,20 +38,19 @@
       </template>
     </BasicTable>
     <!-- 表单区域 -->
-    <TBQueryProductModal ref="registerModal" @success="handleSuccess"></TBQueryProductModal>
+    <TBCustomerModal ref="registerModal" @success="handleSuccess"></TBCustomerModal>
   </div>
 </template>
 
-<script lang="ts" name="jxcmanage-tBQueryProduct" setup>
+<script lang="ts" name="jxcmanage-tBCustomer" setup>
   import { ref, reactive } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useListPage } from '/@/hooks/system/useListPage';
-  import { columns, superQuerySchema } from './TBQueryProduct.data';
-  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl } from './TBQueryProduct.api';
+  import { columns, superQuerySchema } from './TBCustomer.data';
+  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl } from './TBCustomer.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
-  import TBQueryProductModal from './components/TBQueryProductModal.vue'
+  import TBCustomerModal from './components/TBCustomerModal.vue'
   import { useUserStore } from '/@/store/modules/user';
-  import JInput from "/@/components/Form/src/jeecg/components/JInput.vue";
 
   const formRef = ref();
   const queryParam = reactive<any>({});
@@ -105,7 +60,7 @@
   //注册table数据
   const { prefixCls, tableContext, onExportXls, onImportXls } = useListPage({
     tableProps: {
-      title: '商品查询',
+      title: '客户管理',
       api: list,
       columns,
       canResize:false,
@@ -119,7 +74,7 @@
       },
     },
     exportConfig: {
-      name: "商品查询",
+      name: "客户管理",
       url: getExportUrl,
       params: queryParam,
     },
@@ -160,7 +115,7 @@
     registerModal.value.disableSubmit = false;
     registerModal.value.add();
   }
-
+  
   /**
    * 编辑事件
    */
@@ -168,7 +123,7 @@
     registerModal.value.disableSubmit = false;
     registerModal.value.edit(record);
   }
-
+   
   /**
    * 详情
    */
@@ -176,28 +131,28 @@
     registerModal.value.disableSubmit = true;
     registerModal.value.edit(record);
   }
-
+   
   /**
    * 删除事件
    */
   async function handleDelete(record) {
     await deleteOne({ id: record.id }, handleSuccess);
   }
-
+   
   /**
    * 批量删除事件
    */
   async function batchHandleDelete() {
     await batchDelete({ ids: selectedRowKeys.value }, handleSuccess);
   }
-
+   
   /**
    * 成功回调
    */
   function handleSuccess() {
     (selectedRowKeys.value = []) && reload();
   }
-
+   
   /**
    * 操作栏
    */
@@ -206,11 +161,11 @@
       {
         label: '编辑',
         onClick: handleEdit.bind(null, record),
-        auth: 'jxcmanage:t_b_query_product:edit'
+        auth: 'jxcmanage:t_b_customer:edit'
       },
     ];
   }
-
+   
   /**
    * 下拉操作栏
    */
@@ -226,7 +181,7 @@
           confirm: handleDelete.bind(null, record),
           placement: 'topLeft',
         },
-        auth: 'jxcmanage:t_b_query_product:delete'
+        auth: 'jxcmanage:t_b_customer:delete'
       }
     ]
   }
@@ -237,7 +192,7 @@
   function searchQuery() {
     reload();
   }
-
+  
   /**
    * 重置
    */
@@ -247,7 +202,7 @@
     //刷新数据
     reload();
   }
-
+  
 
 
 
