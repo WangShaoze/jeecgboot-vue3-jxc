@@ -4,26 +4,21 @@
       <template #detail>
         <a-form ref="formRef" class="antd-modal-form" :labelCol="labelCol" :wrapperCol="wrapperCol" name="TBCustomerForm">
           <a-row>
-						<a-col :span="24">
-							<a-form-item label="客户名称" v-bind="validateInfos.customerName" id="TBCustomerForm-customerName" name="customerName">
-								<a-input v-model:value="formData.customerName" placeholder="请输入客户名称"  allow-clear ></a-input>
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="客户类型" v-bind="validateInfos.customerType" id="TBCustomerForm-customerType" name="customerType">
-								<j-dict-select-tag v-model:value="formData.customerType" dictCode="jxc_sales_status" placeholder="请选择客户类型"  allow-clear />
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="保留字段2" v-bind="validateInfos.preserveFieldTwo" id="TBCustomerForm-preserveFieldTwo" name="preserveFieldTwo">
-								<a-input v-model:value="formData.preserveFieldTwo" placeholder="请输入保留字段2"  allow-clear ></a-input>
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="保留字段3" v-bind="validateInfos.preserveFieldThree" id="TBCustomerForm-preserveFieldThree" name="preserveFieldThree">
-								<a-input v-model:value="formData.preserveFieldThree" placeholder="请输入保留字段3"  allow-clear ></a-input>
-							</a-form-item>
-						</a-col>
+            <a-col :span="24">
+              <a-form-item label="客户名称" v-bind="validateInfos.customerName" id="TBCustomerForm-customerName" name="customerName">
+                <a-input v-model:value="formData.customerName" placeholder="请输入客户名称" allow-clear></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="客户类型" v-bind="validateInfos.customerType" id="TBCustomerForm-customerType" name="customerType">
+                <j-dict-select-tag v-model:value="formData.customerType" dictCode="jxc_sales_status" placeholder="请选择客户类型" allow-clear />
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="手机号后位" v-bind="validateInfos.phoneSuffixFour" id="TBCustomerForm-phoneSuffixFour" name="phoneSuffixFour">
+                <a-input v-model:value="formData.phoneSuffixFour" placeholder="请输入手机号后位" allow-clear></a-input>
+              </a-form-item>
+            </a-col>
           </a-row>
         </a-form>
       </template>
@@ -40,43 +35,42 @@
   import { saveOrUpdate } from '../TBCustomer.api';
   import { Form } from 'ant-design-vue';
   import JFormContainer from '/@/components/Form/src/container/JFormContainer.vue';
+
   const props = defineProps({
     formDisabled: { type: Boolean, default: false },
-    formData: { type: Object, default: () => ({})},
-    formBpm: { type: Boolean, default: true }
+    formData: { type: Object, default: () => ({}) },
+    formBpm: { type: Boolean, default: true },
   });
   const formRef = ref();
   const useForm = Form.useForm;
   const emit = defineEmits(['register', 'ok']);
   const formData = reactive<Record<string, any>>({
     id: '',
-    customerName: '',   
-    customerType: '',   
-    preserveFieldTwo: '',   
-    preserveFieldThree: '',   
+    customerName: '',
+    customerType: '',
+    preserveFieldTwo: '',
+    preserveFieldThree: '',
   });
   const { createMessage } = useMessage();
   const labelCol = ref<any>({ xs: { span: 24 }, sm: { span: 5 } });
   const wrapperCol = ref<any>({ xs: { span: 24 }, sm: { span: 16 } });
   const confirmLoading = ref<boolean>(false);
   //表单验证
-  const validatorRules = reactive({
-  });
+  const validatorRules = reactive({});
   const { resetFields, validate, validateInfos } = useForm(formData, validatorRules, { immediate: false });
 
   // 表单禁用
-  const disabled = computed(()=>{
-    if(props.formBpm === true){
-      if(props.formData.disabled === false){
+  const disabled = computed(() => {
+    if (props.formBpm === true) {
+      if (props.formData.disabled === false) {
         return false;
-      }else{
+      } else {
         return true;
       }
     }
     return props.formDisabled;
   });
 
-  
   /**
    * 新增
    */
@@ -92,10 +86,10 @@
       resetFields();
       const tmpData = {};
       Object.keys(formData).forEach((key) => {
-        if(record.hasOwnProperty(key)){
-          tmpData[key] = record[key]
+        if (record.hasOwnProperty(key)) {
+          tmpData[key] = record[key];
         }
-      })
+      });
       //赋值
       Object.assign(formData, tmpData);
     });
@@ -148,7 +142,6 @@
         confirmLoading.value = false;
       });
   }
-
 
   defineExpose({
     add,

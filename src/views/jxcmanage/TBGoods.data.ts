@@ -6,6 +6,11 @@ import { getWeekMonthQuarterYear } from '/@/utils';
 //列表数据
 export const columns: BasicColumn[] = [
   {
+    title: '供应商款号',
+    align: 'center',
+    dataIndex: 'supplierStyleNo',
+  },
+  {
     title: '销售单号',
     align: 'center',
     dataIndex: 'salesOrderNo',
@@ -188,5 +193,11 @@ export const superQuerySchema = {
     orgFields: 'km',
     destFields: 'kmValue',
     popupMulti: false,
+  },
+  supplierStyleNo: {
+    title: '款号',
+    order: 24,
+    view: 'text',
+    type: 'string',
   },
 };

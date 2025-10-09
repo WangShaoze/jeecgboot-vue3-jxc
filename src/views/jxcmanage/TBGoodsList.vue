@@ -109,9 +109,9 @@
       <!--插槽:table标题-->
       <template #tableTitle>
         <!--        <a-button type="primary" v-auth="'jxcmanage:t_b_goods:add'" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增 </a-button>-->
-        <a-button type="primary" v-auth="'jxcmanage:t_b_goods:exportPandDianXls'" preIcon="ant-design:export-outlined" @click="onExportXlsx">
-          导出
-        </a-button>
+        <!--        <a-button type="primary" v-auth="'jxcmanage:t_b_goods:exportPandDianXls'" preIcon="ant-design:export-outlined" @click="onExportXlsx">-->
+        <!--          导出-->
+        <!--        </a-button>-->
         <j-upload-button type="primary" v-auth="'jxcmanage:t_b_goods:importPandianExcel'" preIcon="ant-design:import-outlined" @click="onImportXls"
           >导入
         </j-upload-button>
@@ -131,7 +131,11 @@
                 <Icon icon="ant-design:retweet-outlined"></Icon>
                 批量更新货品成本
               </a-menu-item>
-              <a-menu-item key="4" @click="batchHandleDelete">
+              <a-menu-item key="4" @click="batchHandleExport">
+                <Icon icon="ant-design:export-outlined"></Icon>
+                批量导出
+              </a-menu-item>
+              <a-menu-item key="5" @click="batchHandleDelete">
                 <Icon icon="ant-design:delete-outlined"></Icon>
                 删除
               </a-menu-item>
@@ -195,6 +199,7 @@
     batchSelectKmApi,
     batchUpdateQueryAddressApi,
     updateOriginPriceApi,
+    batchHandleExportApi,
   } from './TBGoods.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import TBGoodsModal from './components/TBGoodsModal.vue';
@@ -275,6 +280,15 @@
    * */
   async function batchHandleUpdateOriginPrice() {
     await updateOriginPriceApi({ goodIds: selectedRowKeys.value.join(',') }, handleSuccess);
+  }
+
+  /**
+   * 批量导出
+   * */
+  async function batchHandleExport() {
+    await batchHandleExportApi({ goodsIds: selectedRowKeys.value.join(',') }).then((res) => {
+      downloadFile(res); // 下载文件
+    });
   }
 
   /**

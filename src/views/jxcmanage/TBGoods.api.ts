@@ -19,9 +19,11 @@ enum Api {
   batchSelectKm = '/jxcmanage/tBGoods/batchSelectKm',
   batchUpdateQueryAddress = '/jxcmanage/tBGoods/batchUpdateQueryAddress',
   updateOriginPrice = '/jxcmanage/tBGoods/updateOriginPrice',
+  batchHandleExport = '/jxcmanage/tBGoods/batchHandleExport',
   getBarData = '/jxcmanage/tBGoods/getBarData',
   getMarketPrice = '/jxcmanage/tBGoods/getMarketPrice',
   judgeSecurityCode = '/jxcmanage/tBGoods/judgeSecurityCode',
+  goodsOutboundExport = '/jxcmanage/tBGoods/goodsOutboundExport',
 }
 
 /**
@@ -121,4 +123,21 @@ export const updateOriginPriceApi = (params, handleSuccess) => {
   return defHttp.post({ url: Api.updateOriginPrice, params }, { joinParamsToUrl: true }).then(() => {
     handleSuccess();
   });
+};
+
+export const batchHandleExportApi = (params) => {
+  /**
+   * 批量导出
+   * @param params
+   */
+  return defHttp.post({ url: Api.batchHandleExport, params });
+};
+
+/**
+ * 批量更新货品成本
+ * @param params
+ * @param handleSuccess
+ */
+export const goodsOutboundExportApi = (params) => {
+  return defHttp.post({ url: Api.goodsOutboundExport, params });
 };

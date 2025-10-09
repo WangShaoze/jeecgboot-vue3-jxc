@@ -7,7 +7,7 @@
           <a-col :lg="6">
             <a-form-item name="styleNo">
               <template #label><span title="款号">款号</span></template>
-              <JInput v-model:value="queryParam.styleNo" />
+              <JInput v-model:value="queryParam.newStyleNo" />
             </a-form-item>
           </a-col>
           <a-col :lg="6">
@@ -50,6 +50,7 @@
           </a-button>
           <a-button type="primary" preIcon="ant-design:heat-map-outlined" @click="showSecurityCode"> 检验安全码 </a-button>
           <a-button type="primary" preIcon="ant-design:pic-right-outlined" @click="batchOutbound"> 批量出库 </a-button>
+          <a-button type="primary" preIcon="ant-design:export-outlined" @click="batchGoodsOutboundExport"> 出货导出 </a-button>
           <!--          <j-upload-button type="primary" v-auth="'jxcmanage:t_b_style:importExcel'" preIcon="ant-design:import-outlined" @click="onImportXls"-->
           <!--            >导入-->
           <!--          </j-upload-button>-->
@@ -128,6 +129,29 @@
   >
     <a-input-search v-model:value="securityCode" placeholder="请输入安全码" enter-button="校验" size="large" @search="judgeSecurityCode" />
   </a-modal>
+  <!-- JPop 弹窗 ==》 出货导出 -->
+  <a-modal
+    v-model:visible="showGoodsOutboundExportModal"
+    title="选择需要导出的货品"
+    @ok="handleOkGoodsOutboundExport"
+    @cancel="handleCancelGoodsOutboundExport"
+  >
+    <a-form-item v-bind="goodsId" id="selectGoodsOutboundExport" name="selectGoodsOutboundExportName">
+      <j-popup
+        spliter="货品-货号列表"
+        placeholder="选择货品"
+        v-model:value="goodsOutboundExportFormData.productNos"
+        code="jxc_outbound_goods_export"
+        :fieldConfig="[
+          { source: 'id', target: 'goodsIds' },
+          { source: 'product_no', target: 'productNos' },
+        ]"
+        :multi="true"
+        :setFieldsValue="setGoodsOutboundExportFieldsValue"
+        allow-clear
+      />
+    </a-form-item>
+  </a-modal>
 </template>
 
 <script lang="ts" name="jxcmanage-tBStyleForFH" setup>
@@ -144,7 +168,43 @@
   import { JPopup } from '@/components/Form';
   import { useMessage } from '/@/hooks/web/useMessage';
 
-  import { judgeSecurityCodeApi } from './TBGoods.api';
+  import { judgeSecurityCodeApi, goodsOutboundExportApi } from './TBGoods.api';
+
+  const showGoodsOutboundExportModal = ref(false);
+
+  const goodsOutboundExportFormData = reactive({
+    goodsIds: '',
+    productNos: '',
+  });
+
+  // 出货导出
+  function batchGoodsOutboundExport() {
+    showGoodsOutboundExportModal.value = true;
+  }
+
+  async function handleOkGoodsOutboundExport() {
+    showGoodsOutboundExportModal.value = false;
+    await goodsOutboundExportApi({ goodsIds: goodsOutboundExportFormData.goodsIds }).then((res) => {
+      // 返回excel连接，下载Excel文件
+      downloadFile(res);
+    });
+    //downloadFile('http://192.168.47.134:9000/jeecg/jxc_import_excel/导入盘点-导入_be7uhI_2025年09月29日10时26分30秒.xlsx');
+  }
+
+  function handleCancelGoodsOutboundExport() {
+    showGoodsOutboundExportModal.value = false;
+    goodsOutboundExportFormData.goodsIds = '';
+    goodsOutboundExportFormData.productNos = '';
+  }
+
+  /**
+   *  popup组件值改变事件
+   */
+  function setGoodsOutboundExportFieldsValue(map) {
+    Object.keys(map).map((key) => {
+      goodsOutboundExportFormData[key] = map[key];
+    });
+  }
 
   const securityCode = ref('');
   const showSecurityCodeModal = ref(false);

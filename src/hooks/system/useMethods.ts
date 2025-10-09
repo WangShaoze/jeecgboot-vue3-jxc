@@ -22,18 +22,26 @@ export function useMethods() {
    */
   async function exportXls(name, url, params, isXlsx = false) {
     //update-begin---author:wangshuai---date:2024-01-25---for:【QQYUN-8118】导出超时时间设置长点---
-    const data = await defHttp.get({ url: url, params: params, responseType: 'blob', timeout: 60000 }, { isTransformResponse: false });
+    const data = await defHttp.get(
+      {
+        url: url,
+        params: params,
+        responseType: 'blob',
+        timeout: 60000,
+      },
+      { isTransformResponse: false }
+    );
     //update-end---author:wangshuai---date:2024-01-25---for:【QQYUN-8118】导出超时时间设置长点---
     if (!data) {
       createMessage.warning('文件下载失败');
       return;
     }
     //update-begin---author:wangshuai---date:2024-04-18---for: 导出excel失败提示，不进行导出---
-    let reader = new FileReader()
-    reader.readAsText(data, 'utf-8')
+    let reader = new FileReader();
+    reader.readAsText(data, 'utf-8');
     reader.onload = async () => {
-      if(reader.result){
-        if(reader.result.toString().indexOf("success") !=-1){
+      if (reader.result) {
+        if (reader.result.toString().indexOf('success') != -1) {
           // update-begin---author:liaozhiyang---date:2025-02-11---for:【issues/7738】文件中带"success"导出报错 ---
           try {
             const { success, message } = JSON.parse(reader.result.toString());
@@ -51,7 +59,7 @@ export function useMethods() {
       }
       exportExcel(name, isXlsx, data);
       //update-end---author:wangshuai---date:2024-04-18---for: 导出excel失败提示，不进行导出---
-    }
+    };
   }
 
   /**
