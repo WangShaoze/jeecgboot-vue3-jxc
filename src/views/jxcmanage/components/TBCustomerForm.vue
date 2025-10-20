@@ -15,8 +15,19 @@
               </a-form-item>
             </a-col>
             <a-col :span="24">
-              <a-form-item label="手机号后位" v-bind="validateInfos.phoneSuffixFour" id="TBCustomerForm-phoneSuffixFour" name="phoneSuffixFour">
-                <a-input v-model:value="formData.phoneSuffixFour" placeholder="请输入手机号后位" allow-clear></a-input>
+              <a-form-item label="手机号" v-bind="validateInfos.phone" id="TBCustomerForm-phone" name="phone">
+                <a-input v-model:value="formData.phone" placeholder="请输入手机号" allow-clear></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="出生日期" v-bind="validateInfos.birthday" id="TBCustomerForm-birthday" name="birthday">
+                <a-date-picker
+                  placeholder="请选择出生日期"
+                  v-model:value="formData.birthday"
+                  value-format="YYYY-MM-DD"
+                  style="width: 100%"
+                  allow-clear
+                />
               </a-form-item>
             </a-col>
           </a-row>

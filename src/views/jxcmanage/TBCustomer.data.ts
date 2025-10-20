@@ -16,9 +16,14 @@ export const columns: BasicColumn[] = [
     dataIndex: 'customerType_dictText',
   },
   {
-    title: '手机号后位',
+    title: '手机号',
     align: 'center',
-    dataIndex: 'phoneSuffixFour',
+    dataIndex: 'phone',
+  },
+  {
+    title: '出生日期',
+    align: 'center',
+    dataIndex: 'birthday',
   },
 ];
 
@@ -32,5 +37,6 @@ export const superQuerySchema = {
     type: 'string',
     dictCode: 'jxc_sales_status',
   },
-  phoneSuffixFour: { title: '手机号后位', order: 2, view: 'text', type: 'string' },
+  phone: { title: '手机号', order: 2, view: 'text', type: 'string' },
+  birthday: { title: '出生日期', order: 2, view: 'text', type: 'string' },
 };

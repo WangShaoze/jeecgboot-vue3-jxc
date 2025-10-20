@@ -4,16 +4,39 @@
     <div class="jeecg-basic-table-form-container">
       <a-form ref="formRef" @keyup.enter.native="searchQuery" :model="queryParam" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-row :gutter="24">
-          <a-col :lg="6">
-            <a-form-item name="salesOrderNo">
-              <template #label><span title="销售单号">销售单号</span></template>
-              <JInput v-model:value="queryParam.salesOrderNo" />
+          <a-col :lg="3">
+            <a-form-item name="styleNo">
+              <template #label><span title="款号">款号</span></template>
+              <JInput v-model:value="queryParam.newStyleNo" />
             </a-form-item>
           </a-col>
-          <a-col :lg="6">
-            <a-form-item name="salesDate">
-              <template #label><span title="销售日期">销售日期</span></template>
-              <a-range-picker showTime value-format="YYYY-MM-DD HH:mm:ss" v-model:value="queryParam.salesDate" class="query-group-cust" />
+          <a-col :lg="3">
+            <a-form-item name="productNo">
+              <template #label><span title="货号">货号</span></template>
+              <JInput v-model:value="queryParam.productNo" />
+            </a-form-item>
+          </a-col>
+          <a-col :lg="7">
+            <a-form-item name="status">
+              <template #label><span title="状态（合/残）">状态（合/残）</span></template>
+              <j-select-multiple placeholder="请选择状态（合/残）" v-model:value="queryParam.status" dictCode="jxc_pandian_status" allow-clear />
+            </a-form-item>
+          </a-col>
+          <a-col :lg="4">
+            <a-form-item name="kmValue">
+              <template #label><span title="库位号">库位号</span></template>
+              <j-popup
+                placeholder="请选择库位号"
+                v-model:value="queryParam.kmValue"
+                code="jxc_select_km"
+                :fieldConfig="[
+                  { source: 'km', target: 'kmValue' },
+                  { source: 'id', target: 'kmId' },
+                ]"
+                :multi="true"
+                :setFieldsValue="setFieldsValue"
+                allow-clear
+              />
             </a-form-item>
           </a-col>
           <template v-if="toggleSearchStatus">
@@ -24,68 +47,15 @@
               </a-form-item>
             </a-col>
             <a-col :lg="6">
-              <a-form-item name="styleNo">
-                <template #label><span title="款号">款号</span></template>
-                <JInput v-model:value="queryParam.styleNo" />
+              <a-form-item name="salesOrderNo">
+                <template #label><span title="销售单号">销售单号</span></template>
+                <JInput v-model:value="queryParam.salesOrderNo" />
               </a-form-item>
             </a-col>
-            <!--            <a-col :lg="6">-->
-            <!--              <a-form-item name="styleCategory">-->
-            <!--                <template #label><span title="款式类别">款式类别</span></template>-->
-            <!--                <a-input placeholder="请输入款式类别" v-model:value="queryParam.styleCategory" allow-clear></a-input>-->
-            <!--              </a-form-item>-->
-            <!--            </a-col>-->
             <a-col :lg="6">
-              <a-form-item name="productNo">
-                <template #label><span title="货号">货号</span></template>
-                <JInput v-model:value="queryParam.productNo" />
-              </a-form-item>
-            </a-col>
-            <!--            <a-col :lg="6">-->
-            <!--              <a-form-item name="newStyleNo">-->
-            <!--                <template #label><span title="客户款号">客户款号</span></template>-->
-            <!--                <JInput v-model:value="queryParam.newStyleNo" />-->
-            <!--              </a-form-item>-->
-            <!--            </a-col>-->
-            <!--            <a-col :lg="6">-->
-            <!--              <a-form-item name="itemName">-->
-            <!--                <template #label><span title="客胚名称">客胚名称</span></template>-->
-            <!--                <JInput v-model:value="queryParam.itemName" />-->
-            <!--              </a-form-item>-->
-            <!--            </a-col>-->
-            <!--            <a-col :lg="6">-->
-            <!--              <a-form-item name="certificateNo">-->
-            <!--                <template #label><span title="证书编号">证书编号</span></template>-->
-            <!--                <JInput v-model:value="queryParam.certificateNo" />-->
-            <!--              </a-form-item>-->
-            <!--            </a-col>-->
-            <a-col :lg="8">
-              <a-form-item name="status">
-                <template #label><span title="状态（合/残）">状态（合/残）</span></template>
-                <j-select-multiple placeholder="请选择状态（合/残）" v-model:value="queryParam.status" dictCode="jxc_pandian_status" allow-clear />
-              </a-form-item>
-            </a-col>
-            <!--            <a-col :lg="6">
-                          <a-form-item name="inboundStatus">
-                            <template #label><span title="库存状态">库存状态</span></template>
-                            <j-select-multiple placeholder="请选择库存状态" v-model:value="queryParam.inboundStatus" dictCode="jxc_inbound_status" allow-clear />
-                          </a-form-item>
-                        </a-col>-->
-            <a-col :lg="6">
-              <a-form-item name="kmValue">
-                <template #label><span title="库位号">库位号</span></template>
-                <j-popup
-                  placeholder="请选择库位号"
-                  v-model:value="queryParam.kmValue"
-                  code="jxc_select_km"
-                  :fieldConfig="[
-                    { source: 'km', target: 'kmValue' },
-                    { source: 'id', target: 'kmId' },
-                  ]"
-                  :multi="true"
-                  :setFieldsValue="setFieldsValue"
-                  allow-clear
-                />
+              <a-form-item name="salesDate">
+                <template #label><span title="销售日期">销售日期</span></template>
+                <a-range-picker showTime value-format="YYYY-MM-DD HH:mm:ss" v-model:value="queryParam.salesDate" class="query-group-cust" />
               </a-form-item>
             </a-col>
           </template>

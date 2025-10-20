@@ -2,51 +2,46 @@
   <a-spin :spinning="confirmLoading">
     <JFormContainer :disabled="disabled">
       <template #detail>
-        <a-form ref="formRef" class="antd-modal-form" :labelCol="labelCol" :wrapperCol="wrapperCol" name="TBQueryProductForm">
+        <a-form ref="formRef" class="antd-modal-form" :labelCol="labelCol" :wrapperCol="wrapperCol" name="TBGoodsForQueryForm">
           <a-row>
-						<a-col :span="24">
-							<a-form-item label="货号" v-bind="validateInfos.itemNumber" id="TBQueryProductForm-itemNumber" name="itemNumber">
-								<a-input v-model:value="formData.itemNumber" placeholder="请输入货号"  allow-clear ></a-input>
+						<a-col :span="12">
+							<a-form-item label="款式类别" v-bind="validateInfos.styleCategory" id="TBGoodsForQueryForm-styleCategory" name="styleCategory">
+								<a-input v-model:value="formData.styleCategory" placeholder="请输入款式类别"  allow-clear ></a-input>
 							</a-form-item>
 						</a-col>
-						<a-col :span="24">
-							<a-form-item label="证书编号" v-bind="validateInfos.certificateNumber" id="TBQueryProductForm-certificateNumber" name="certificateNumber">
-								<a-input v-model:value="formData.certificateNumber" placeholder="请输入证书编号"  allow-clear ></a-input>
+						<a-col :span="12">
+							<a-form-item label="货号" v-bind="validateInfos.productNo" id="TBGoodsForQueryForm-productNo" name="productNo">
+								<a-input v-model:value="formData.productNo" placeholder="请输入货号"  allow-clear ></a-input>
 							</a-form-item>
 						</a-col>
-						<a-col :span="24">
-							<a-form-item label="商品名称" v-bind="validateInfos.productName" id="TBQueryProductForm-productName" name="productName">
-								<a-input v-model:value="formData.productName" placeholder="请输入商品名称"  allow-clear ></a-input>
+						<a-col :span="12">
+							<a-form-item label="客胚名称" v-bind="validateInfos.itemName" id="TBGoodsForQueryForm-itemName" name="itemName">
+								<a-input v-model:value="formData.itemName" placeholder="请输入客胚名称"  allow-clear ></a-input>
 							</a-form-item>
 						</a-col>
-						<a-col :span="24">
-							<a-form-item label="形状" v-bind="validateInfos.shape" id="TBQueryProductForm-shape" name="shape">
-								<a-input v-model:value="formData.shape" placeholder="请输入形状"  allow-clear ></a-input>
+						<a-col :span="12">
+							<a-form-item label="银重" v-bind="validateInfos.silverWeight" id="TBGoodsForQueryForm-silverWeight" name="silverWeight">
+								<a-input-number v-model:value="formData.silverWeight" placeholder="请输入银重" style="width: 100%" />
 							</a-form-item>
 						</a-col>
-						<a-col :span="24">
-							<a-form-item label="颜色" v-bind="validateInfos.color" id="TBQueryProductForm-color" name="color">
-								<a-input v-model:value="formData.color" placeholder="请输入颜色"  allow-clear ></a-input>
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="基材重" v-bind="validateInfos.baseMaterialWeight" id="TBQueryProductForm-baseMaterialWeight" name="baseMaterialWeight">
-								<a-input-number v-model:value="formData.baseMaterialWeight" placeholder="请输入基材重" style="width: 100%" />
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="电金后重" v-bind="validateInfos.weightAfterGoldPlating" id="TBQueryProductForm-weightAfterGoldPlating" name="weightAfterGoldPlating">
-								<a-input-number v-model:value="formData.weightAfterGoldPlating" placeholder="请输入电金后重" style="width: 100%" />
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="总质量" v-bind="validateInfos.totalWeight" id="TBQueryProductForm-totalWeight" name="totalWeight">
-								<a-input-number v-model:value="formData.totalWeight" placeholder="请输入总质量" style="width: 100%" />
-							</a-form-item>
-						</a-col>
-						<a-col :span="24">
-							<a-form-item label="金重" v-bind="validateInfos.goldWeight" id="TBQueryProductForm-goldWeight" name="goldWeight">
+						<a-col :span="12">
+							<a-form-item label="金重" v-bind="validateInfos.goldWeight" id="TBGoodsForQueryForm-goldWeight" name="goldWeight">
 								<a-input-number v-model:value="formData.goldWeight" placeholder="请输入金重" style="width: 100%" />
+							</a-form-item>
+						</a-col>
+						<a-col :span="12">
+							<a-form-item label="总重" v-bind="validateInfos.totalWeight" id="TBGoodsForQueryForm-totalWeight" name="totalWeight">
+								<a-input-number v-model:value="formData.totalWeight" placeholder="请输入总重" style="width: 100%" />
+							</a-form-item>
+						</a-col>
+						<a-col :span="12">
+							<a-form-item label="证书编号" v-bind="validateInfos.certificateNo" id="TBGoodsForQueryForm-certificateNo" name="certificateNo">
+								<a-input v-model:value="formData.certificateNo" placeholder="请输入证书编号"  allow-clear ></a-input>
+							</a-form-item>
+						</a-col>
+						<a-col :span="12">
+							<a-form-item label="查询地址" v-bind="validateInfos.queryUrl" id="TBGoodsForQueryForm-queryUrl" name="queryUrl">
+								<a-input v-model:value="formData.queryUrl" placeholder="请输入查询地址"  allow-clear ></a-input>
 							</a-form-item>
 						</a-col>
           </a-row>
@@ -61,7 +56,7 @@
   import { defHttp } from '/@/utils/http/axios';
   import { useMessage } from '/@/hooks/web/useMessage';
   import { getValueType } from '/@/utils';
-  import { saveOrUpdate } from '../TBQueryProduct.api';
+  import { saveOrUpdate } from '../TBGoodsForQuery.api';
   import { Form } from 'ant-design-vue';
   import JFormContainer from '/@/components/Form/src/container/JFormContainer.vue';
   const props = defineProps({
@@ -74,15 +69,14 @@
   const emit = defineEmits(['register', 'ok']);
   const formData = reactive<Record<string, any>>({
     id: '',
-    itemNumber: '',   
-    certificateNumber: '',   
-    productName: '',   
-    shape: '',   
-    color: '',   
-    baseMaterialWeight: undefined,
-    weightAfterGoldPlating: undefined,
-    totalWeight: undefined,
+    styleCategory: '',   
+    productNo: '',   
+    itemName: '',   
+    silverWeight: undefined,
     goldWeight: undefined,
+    totalWeight: undefined,
+    certificateNo: '',   
+    queryUrl: '',   
   });
   const { createMessage } = useMessage();
   const labelCol = ref<any>({ xs: { span: 24 }, sm: { span: 5 } });
@@ -90,6 +84,14 @@
   const confirmLoading = ref<boolean>(false);
   //表单验证
   const validatorRules = reactive({
+    styleCategory: [{ required: true, message: '请输入款式类别!'},],
+    productNo: [{ required: true, message: '请输入货号!'},],
+    itemName: [{ required: true, message: '请输入客胚名称!'},],
+    silverWeight: [{ required: true, message: '请输入银重!'},],
+    goldWeight: [{ required: true, message: '请输入金重!'},],
+    totalWeight: [{ required: true, message: '请输入总重!'},],
+    certificateNo: [{ required: true, message: '请输入证书编号!'},],
+    queryUrl: [{ required: true, message: '请输入查询地址!'},],
   });
   const { resetFields, validate, validateInfos } = useForm(formData, validatorRules, { immediate: false });
 
