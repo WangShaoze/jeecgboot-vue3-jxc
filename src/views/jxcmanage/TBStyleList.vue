@@ -5,9 +5,9 @@
       <a-form ref="formRef" @keyup.enter.native="searchQuery" :model="queryParam" :label-col="labelCol" :wrapper-col="wrapperCol">
         <a-row :gutter="24">
           <a-col :lg="6">
-            <a-form-item name="styleNo">
+            <a-form-item name="newStyleNo">
               <template #label><span title="款号">款号</span></template>
-              <JInput v-model:value="queryParam.styleNo" />
+              <JInput v-model:value="queryParam.newStyleNo" />
             </a-form-item>
           </a-col>
           <a-col :lg="6">
@@ -16,23 +16,19 @@
               <JInput v-model:value="queryParam.itemName" />
             </a-form-item>
           </a-col>
-<!--          <template v-if="toggleSearchStatus">-->
-<!--            <a-col :lg="6">-->
-<!--              <a-form-item name="customAccount">-->
-<!--                <template #label><span title="客户">客户</span></template>-->
-<!--                <JInput v-model:value="queryParam.customAccount" />-->
-<!--              </a-form-item>-->
-<!--            </a-col>-->
-<!--          </template>-->
+          <!--          <template v-if="toggleSearchStatus">-->
+          <!--            <a-col :lg="6">-->
+          <!--              <a-form-item name="customAccount">-->
+          <!--                <template #label><span title="客户">客户</span></template>-->
+          <!--                <JInput v-model:value="queryParam.customAccount" />-->
+          <!--              </a-form-item>-->
+          <!--            </a-col>-->
+          <!--          </template>-->
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <span style="float: left; overflow: hidden" class="table-page-search-submitButtons">
               <a-col :lg="6">
                 <a-button type="primary" preIcon="ant-design:search-outlined" @click="searchQuery">查询</a-button>
                 <a-button type="primary" preIcon="ant-design:reload-outlined" @click="searchReset" style="margin-left: 8px">重置</a-button>
-                <a @click="toggleSearchStatus = !toggleSearchStatus" style="margin-left: 8px">
-                  {{ toggleSearchStatus ? '收起' : '展开' }}
-                  <Icon :icon="toggleSearchStatus ? 'ant-design:up-outlined' : 'ant-design:down-outlined'" />
-                </a>
               </a-col>
             </span>
           </a-col>
@@ -43,7 +39,7 @@
     <BasicTable @register="registerTable" :rowSelection="rowSelection">
       <!--插槽:table标题-->
       <template #tableTitle>
-<!--        <a-button type="primary" v-auth="'jxcmanage:t_b_style:add'" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增 </a-button>-->
+        <!--        <a-button type="primary" v-auth="'jxcmanage:t_b_style:add'" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增 </a-button>-->
         <a-button type="primary" v-auth="'jxcmanage:t_b_style:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls"> 导出 </a-button>
         <j-upload-button type="primary" v-auth="'jxcmanage:t_b_style:importExcel'" preIcon="ant-design:import-outlined" @click="onImportXls"
           >导入
@@ -63,13 +59,13 @@
           </a-button>
         </a-dropdown>
         <!-- 高级查询 -->
-<!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
+        <!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
       </template>
       <!--操作栏-->
       <template #action="{ record }">
         <TableAction :actions="getTableAction(record)" :dropDownActions="getDropDownAction(record)" />
       </template>
-      <template v-slot:bodyCell="{ column, record, index, text }"> </template>
+      <template v-slot:bodyCell="{ column, record, index, text }"></template>
     </BasicTable>
     <!-- 表单区域 -->
     <TBStyleModal ref="registerModal" @success="handleSuccess"></TBStyleModal>

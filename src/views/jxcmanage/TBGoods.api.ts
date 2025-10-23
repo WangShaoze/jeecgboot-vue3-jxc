@@ -17,7 +17,6 @@ enum Api {
   batchInbound = '/jxcmanage/tBGoods/batchInbound',
   selectKm = '/jxcmanage/tBGoods/selectKm',
   batchSelectKm = '/jxcmanage/tBGoods/batchSelectKm',
-  batchUpdateQueryAddress = '/jxcmanage/tBGoods/batchUpdateQueryAddress',
   updateOriginPrice = '/jxcmanage/tBGoods/updateOriginPrice',
   batchHandleExport = '/jxcmanage/tBGoods/batchHandleExport',
   getBarData = '/jxcmanage/tBGoods/getBarData',
@@ -53,12 +52,6 @@ export const judgeSecurityCodeApi = (params) => defHttp.get({ url: Api.judgeSecu
  */
 export const inboundApi = (params) => defHttp.get({ url: Api.inbound, params });
 export const batchInboundApi = (params) => defHttp.get({ url: Api.batchInbound, params });
-export const batchUpdateQueryAddressApi = (params) =>
-  defHttp.get({
-    url: Api.batchUpdateQueryAddress,
-    params,
-  });
-
 /**
  * 选择库位
  * */

@@ -64,11 +64,6 @@ export const tBGoodsZICColumns: BasicColumn[] = [
     dataIndex: 'productNo',
   },
   {
-    title: '客胚名称',
-    align: 'center',
-    dataIndex: 'itemName',
-  },
-  {
     title: '银重',
     align: 'center',
     dataIndex: 'silverWeight',
@@ -87,46 +82,6 @@ export const tBGoodsZICColumns: BasicColumn[] = [
     title: '证书编号',
     align: 'center',
     dataIndex: 'certificateNo',
-  },
-  {
-    title: '证书机构',
-    align: 'center',
-    dataIndex: 'certificateOrg',
-  },
-  {
-    title: '字印',
-    align: 'center',
-    dataIndex: 'seal',
-  },
-  {
-    title: '查询地址',
-    align: 'center',
-    dataIndex: 'queryUrl',
-  },
-  {
-    title: '序号',
-    align: 'center',
-    dataIndex: 'sequenceNo',
-  },
-  {
-    title: '成本',
-    align: 'center',
-    dataIndex: 'originalPrice',
-  },
-  {
-    title: '参考售价(经销商)',
-    align: 'center',
-    dataIndex: 'distributorReferenceSellingPrice',
-  },
-  {
-    title: '参考售价(代理商)',
-    align: 'center',
-    dataIndex: 'agentReferenceSellingPrice',
-  },
-  {
-    title: '状态（合/残）',
-    align: 'center',
-    dataIndex: 'status_dictText',
   },
   {
     title: '库存状态',
@@ -170,14 +125,6 @@ export const tBGoodsZICFormSchema: FormSchema[] = [
     },
   },
   {
-    label: '客胚名称',
-    field: 'itemName',
-    component: 'Input',
-    dynamicRules: ({ model, schema }) => {
-      return [{ required: true, message: '请输入客胚名称!' }];
-    },
-  },
-  {
     label: '银重',
     field: 'silverWeight',
     component: 'InputNumber',
@@ -207,64 +154,6 @@ export const tBGoodsZICFormSchema: FormSchema[] = [
     component: 'Input',
     dynamicRules: ({ model, schema }) => {
       return [{ required: true, message: '请输入证书编号!' }];
-    },
-  },
-  {
-    label: '证书机构',
-    field: 'certificateOrg',
-    component: 'Input',
-    dynamicRules: ({ model, schema }) => {
-      return [{ required: true, message: '请输入证书机构!' }];
-    },
-  },
-  {
-    label: '字印',
-    field: 'seal',
-    component: 'Input',
-    dynamicRules: ({ model, schema }) => {
-      return [{ required: true, message: '请输入字印!' }];
-    },
-  },
-  {
-    label: '查询地址',
-    field: 'queryUrl',
-    component: 'Input',
-    dynamicRules: ({ model, schema }) => {
-      return [{ required: true, message: '请输入查询地址!' }];
-    },
-  },
-  {
-    label: '序号',
-    field: 'sequenceNo',
-    component: 'InputNumber',
-    dynamicRules: ({ model, schema }) => {
-      return [{ required: true, message: '请输入序号!' }];
-    },
-  },
-  {
-    label: '成本',
-    field: 'originalPrice',
-    component: 'InputNumber',
-  },
-  {
-    label: '参考售价(经销商)',
-    field: 'distributorReferenceSellingPrice',
-    component: 'InputNumber',
-  },
-  {
-    label: '参考售价(代理商)',
-    field: 'agentReferenceSellingPrice',
-    component: 'InputNumber',
-  },
-  {
-    label: '状态（合/残）',
-    field: 'status',
-    component: 'JDictSelectTag',
-    componentProps: {
-      dictCode: 'jxc_pandian_status',
-    },
-    dynamicRules: ({ model, schema }) => {
-      return [{ required: true, message: '请输入状态（合/残）!' }];
     },
   },
   {

@@ -15,8 +15,8 @@
               </a-form-item>
             </a-col>
             <a-col :span="12">
-              <a-form-item label="客户款号" v-bind="validateInfos.newStyleNo" id="TBGoodsForFH-newStyleNo" name="newStyleNo">
-                <a-input v-model:value="formData.newStyleNo" placeholder="请输入客户款号" allow-clear></a-input>
+              <a-form-item label="款号" v-bind="validateInfos.newStyleNo" id="TBGoodsForFH-newStyleNo" name="newStyleNo">
+                <a-input v-model:value="formData.newStyleNo" placeholder="请输入款号" allow-clear></a-input>
               </a-form-item>
             </a-col>
             <a-col :span="12">
@@ -45,69 +45,47 @@
               </a-form-item>
             </a-col>
             <a-col :span="12">
-              <a-form-item label="证书机构" v-bind="validateInfos.certificateOrg" id="TBGoodsForFH-certificateOrg" name="certificateOrg">
-                <a-input v-model:value="formData.certificateOrg" placeholder="请输入证书机构" allow-clear></a-input>
+              <a-form-item label="成本" v-bind="validateInfos.goodsCost" id="TBGoodsForFH-goodsCost" name="goodsCost">
+                <a-input-number v-model:value="formData.goodsCost" placeholder="请输入成本" style="width: 100%" />
               </a-form-item>
             </a-col>
-            <a-col :span="12">
-              <a-form-item label="字印" v-bind="validateInfos.seal" id="TBGoodsForFH-seal" name="seal">
-                <a-input v-model:value="formData.seal" placeholder="请输入字印" allow-clear></a-input>
-              </a-form-item>
-            </a-col>
-            <a-col :span="12">
-              <a-form-item label="查询地址" v-bind="validateInfos.queryUrl" id="TBGoodsForFH-queryUrl" name="queryUrl">
-                <a-input v-model:value="formData.queryUrl" placeholder="请输入查询地址" allow-clear></a-input>
-              </a-form-item>
-            </a-col>
-            <a-col :span="12">
-              <a-form-item label="序号" v-bind="validateInfos.sequenceNo" id="TBGoodsForFH-sequenceNo" name="sequenceNo">
-                <a-input-number v-model:value="formData.sequenceNo" placeholder="请输入序号" style="width: 100%" />
-              </a-form-item>
-            </a-col>
-            <a-col :span="12">
-              <a-form-item label="原价" v-bind="validateInfos.originalPrice" id="TBGoodsForFH-originalPrice" name="originalPrice">
-                <a-input-number v-model:value="formData.originalPrice" placeholder="请输入原价" style="width: 100%" />
-              </a-form-item>
-            </a-col>
-            <a-col :span="12">
+            <a-col :span="16">
               <a-form-item
-                label="参考售价"
-                v-bind="validateInfos.referenceSellingPrice"
-                id="TBGoodsForFH-referenceSellingPrice"
-                name="referenceSellingPrice"
+                label="参考售价(经销)"
+                v-bind="validateInfos.distributorReferenceSellingPrice"
+                id="TBGoodsForFH-distributorReferenceSellingPrice"
+                name="distributorReferenceSellingPrice"
               >
-                <a-input-number v-model:value="formData.referenceSellingPrice" placeholder="请输入参考售价" style="width: 100%" />
+                <a-input-number v-model:value="formData.distributorReferenceSellingPrice" placeholder="请输入参考售价(经销)" style="width: 100%" />
               </a-form-item>
             </a-col>
-            <a-col :span="12">
-              <a-form-item label="状态（合/残）" v-bind="validateInfos.status" id="TBGoodsForFH-status" name="status">
-                <j-dict-select-tag
-                  type="radio"
-                  v-model:value="formData.status"
-                  dictCode="jxc_pandian_status"
-                  placeholder="请选择状态（合/残）"
-                  allow-clear
-                />
+
+            <a-col :span="16">
+              <a-form-item
+                label="参考零售价"
+                v-bind="retailReferenceSellingPrice"
+                id="TBGoodsForFH-retailReferenceSellingPrice"
+                name="retailReferenceSellingPrice"
+              >
+                <a-input-number v-model:value="formData.retailReferenceSellingPrice" placeholder="请输入参考零售价" style="width: 100%" />
               </a-form-item>
             </a-col>
-            <a-col :span="12">
-              <a-form-item label="库存状态" v-bind="validateInfos.inboundStatus" id="TBGoodsForFH-inboundStatus" name="inboundStatus">
-                <j-dict-select-tag
-                  type="radio"
-                  v-model:value="formData.inboundStatus"
-                  dictCode="jxc_inbound_status"
-                  placeholder="请选择库存状态"
-                  allow-clear
-                />
+            <a-col :span="16">
+              <a-form-item
+                label="参考一口价"
+                v-bind="retailFixedReferenceSellingPrice"
+                id="TBGoodsForFH-retailFixedReferenceSellingPrice"
+                name="retailFixedReferenceSellingPrice"
+              >
+                <a-input-number v-model:value="formData.retailFixedReferenceSellingPrice" placeholder="请输入参考一口价" style="width: 100%" />
               </a-form-item>
             </a-col>
-            <a-col :span="12">
-              <a-form-item label="销售状态" v-bind="validateInfos.salesStatus" id="TBGoodsForFH-salesStatus" name="salesStatus">
+            <a-col :span="16">
+              <a-form-item label="是否一口价" id="TBStyleForm-isFixedPrice" name="isFixedPrice">
                 <j-dict-select-tag
-                  type="radio"
-                  v-model:value="formData.salesStatus"
-                  dictCode="jxc_sales_status"
-                  placeholder="请选择销售状态"
+                  v-model:value="formData.isFixedPrice"
+                  dictCode="jxc_isFixedPrice_dict"
+                  placeholder="请选择是否一口价"
                   allow-clear
                 />
               </a-form-item>
@@ -161,13 +139,11 @@
     goldWeight: undefined,
     totalWeight: undefined,
     certificateNo: '',
-    certificateOrg: '',
-    seal: '',
-    queryUrl: '',
-    sequenceNo: undefined,
-    originalPrice: undefined,
-    referenceSellingPrice: undefined,
-    status: '',
+    goodsCost: undefined,
+    distributorReferenceSellingPrice: undefined,
+    retailReferenceSellingPrice: undefined,
+    retailFixedReferenceSellingPrice: undefined,
+    isFixedPrice: '',
     inboundStatus: '',
     salesStatus: '',
     kmValue: '',
@@ -180,7 +156,7 @@
   const validatorRules = {
     styleCategory: [{ required: true, message: '请输入款式类别!' }],
     productNo: [{ required: true, message: '请输入货号!' }],
-    newStyleNo: [{ required: true, message: '请输入客户款号!' }],
+    newStyleNo: [{ required: true, message: '请输入款号!' }],
     itemName: [{ required: true, message: '请输入客胚名称!' }],
     silverWeight: [{ required: true, message: '请输入银重!' }],
     goldWeight: [{ required: true, message: '请输入金重!' }],

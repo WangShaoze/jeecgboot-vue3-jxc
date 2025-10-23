@@ -24,6 +24,10 @@ export const columns: BasicColumn[] = [
     title: '出生日期',
     align: 'center',
     dataIndex: 'birthday',
+    customRender: ({ text }) => {
+      text = !text ? '' : text.length > 10 ? text.substr(0, 10) : text;
+      return text;
+    },
   },
 ];
 
@@ -38,5 +42,5 @@ export const superQuerySchema = {
     dictCode: 'jxc_sales_status',
   },
   phone: { title: '手机号', order: 2, view: 'text', type: 'string' },
-  birthday: { title: '出生日期', order: 2, view: 'text', type: 'string' },
+  birthday: { title: '出生日期', order: 3, view: 'date', type: 'string' },
 };

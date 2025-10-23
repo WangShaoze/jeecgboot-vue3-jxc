@@ -16,23 +16,17 @@
               <JInput v-model:value="queryParam.phone" />
             </a-form-item>
           </a-col>
-          <template v-if="toggleSearchStatus">
-            <a-col :lg="6">
-              <a-form-item name="merchantName">
-                <template #label><span title="店铺名">店铺名</span></template>
-                <JInput v-model:value="queryParam.merchantName" />
-              </a-form-item>
-            </a-col>
-          </template>
+          <a-col :lg="6">
+            <a-form-item name="merchantName">
+              <template #label><span title="店铺名">店铺名</span></template>
+              <JInput v-model:value="queryParam.merchantName" />
+            </a-form-item>
+          </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <span style="float: left; overflow: hidden" class="table-page-search-submitButtons">
               <a-col :lg="6">
                 <a-button type="primary" preIcon="ant-design:search-outlined" @click="searchQuery">查询</a-button>
                 <a-button type="primary" preIcon="ant-design:reload-outlined" @click="searchReset" style="margin-left: 8px">重置</a-button>
-                <a @click="toggleSearchStatus = !toggleSearchStatus" style="margin-left: 8px">
-                  {{ toggleSearchStatus ? '收起' : '展开' }}
-                  <Icon :icon="toggleSearchStatus ? 'ant-design:up-outlined' : 'ant-design:down-outlined'" />
-                </a>
               </a-col>
             </span>
           </a-col>

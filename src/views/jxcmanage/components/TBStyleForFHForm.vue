@@ -5,8 +5,8 @@
         <a-form ref="formRef" class="antd-modal-form" :labelCol="labelCol" :wrapperCol="wrapperCol" name="TBStyleForFHForm">
           <a-row>
             <a-col :span="12">
-              <a-form-item label="款号" v-bind="validateInfos.styleNo" id="TBStyleForFHForm-styleNo" name="styleNo">
-                <a-input v-model:value="formData.styleNo" placeholder="请输入款号" allow-clear></a-input>
+              <a-form-item label="款号" v-bind="validateInfos.newStyleNo" id="TBStyleForFHForm-newStyleNo" name="newStyleNo">
+                <a-input v-model:value="formData.newStyleNo" placeholder="请输入款号" allow-clear></a-input>
               </a-form-item>
             </a-col>
             <a-col :span="12">
@@ -14,19 +14,44 @@
                 <a-input v-model:value="formData.itemName" placeholder="请输入款式名称" allow-clear></a-input>
               </a-form-item>
             </a-col>
-            <!--						<a-col :span="12">-->
-            <!--							<a-form-item label="客户" v-bind="validateInfos.customAccount" id="TBStyleForFHForm-customAccount" name="customAccount">-->
-            <!--								<a-input v-model:value="formData.customAccount" placeholder="请输入客户"  allow-clear ></a-input>-->
-            <!--							</a-form-item>-->
-            <!--						</a-col>-->
-            <a-col :span="12">
-              <a-form-item label="金工费" v-bind="validateInfos.goldProcessFee" id="TBStyleForFHForm-goldProcessFee" name="goldProcessFee">
-                <a-input-number v-model:value="formData.goldProcessFee" placeholder="请输入金工费" style="width: 100%" />
+            <a-col :span="24">
+              <a-form-item label="平均银重" v-bind="validateInfos.avgSilverWeight" id="TBStyleForm-avgSilverWeight" name="avgSilverWeight">
+                <a-input-number v-model:value="formData.avgSilverWeight" placeholder="请输入平均银重" style="width: 100%" />
               </a-form-item>
             </a-col>
-            <a-col :span="12">
-              <a-form-item label="银工费" v-bind="validateInfos.sliverProcessFee" id="TBStyleForFHForm-sliverProcessFee" name="sliverProcessFee">
-                <a-input-number v-model:value="formData.sliverProcessFee" placeholder="请输入银工费" style="width: 100%" />
+            <a-col :span="24">
+              <a-form-item label="平均金重" v-bind="validateInfos.avgGoldWeight" id="TBStyleForm-avgGoldWeight" name="avgGoldWeight">
+                <a-input-number v-model:value="formData.avgGoldWeight" placeholder="请输入平均金重" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="平均总重" v-bind="validateInfos.avgTotalWeight" id="TBStyleForm-avgTotalWeight" name="avgTotalWeight">
+                <a-input-number v-model:value="formData.avgTotalWeight" placeholder="请输入平均总重" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="经销工费" v-bind="validateInfos.distributorCost" id="TBStyleForm-distributorCost" name="distributorCost">
+                <a-input-number v-model:value="formData.distributorCost" placeholder="请输入经销工费" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="零售工费" v-bind="validateInfos.retailCost" id="TBStyleForm-retailCost" name="retailCost">
+                <a-input-number v-model:value="formData.retailCost" placeholder="请输入零售工费" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="零售一口价" v-bind="validateInfos.retailFixedPrice" id="TBStyleForm-retailFixedPrice" name="retailFixedPrice">
+                <a-input-number v-model:value="formData.retailFixedPrice" placeholder="请输入零售一口价" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
+              <a-form-item label="是否一口价" v-bind="validateInfos.isFixedPrice" id="TBStyleForm-isFixedPrice" name="isFixedPrice">
+                <j-dict-select-tag
+                  v-model:value="formData.isFixedPrice"
+                  dictCode="jxc_isFixedPrice_dict"
+                  placeholder="请选择是否一口价"
+                  allow-clear
+                />
               </a-form-item>
             </a-col>
           </a-row>
@@ -44,6 +69,7 @@
   import { saveOrUpdate } from '../TBStyleForFH.api';
   import { Form } from 'ant-design-vue';
   import JFormContainer from '/@/components/Form/src/container/JFormContainer.vue';
+  import JDictSelectTag from '../../../components/Form/src/jeecg/components/JDictSelectTag.vue';
 
   const props = defineProps({
     formDisabled: { type: Boolean, default: false },
@@ -54,11 +80,15 @@
   const emit = defineEmits(['register', 'ok']);
   const formData = reactive<Record<string, any>>({
     id: '',
-    styleNo: '',
+    newStyleNo: '',
     itemName: '',
-    customAccount: '',
-    goldProcessFee: undefined,
-    sliverProcessFee: undefined,
+    avgSilverWeight: undefined,
+    avgGoldWeight: undefined,
+    avgTotalWeight: undefined,
+    distributorCost: undefined,
+    retailCost: undefined,
+    retailFixedPrice: undefined,
+    isFixedPrice: '',
   });
   const { createMessage } = useMessage();
   const labelCol = ref<any>({ xs: { span: 24 }, sm: { span: 5 } });

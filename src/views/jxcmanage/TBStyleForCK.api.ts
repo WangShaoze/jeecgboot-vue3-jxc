@@ -35,6 +35,7 @@ export const queryTBGoodsForCK = Api.tBGoodsForCKList;
  */
 export const list = (params) => defHttp.get({ url: Api.list, params });
 
+
 /**
  * 删除单个
  */

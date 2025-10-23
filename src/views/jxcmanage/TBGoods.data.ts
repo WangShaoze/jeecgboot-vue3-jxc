@@ -71,60 +71,21 @@ export const columns: BasicColumn[] = [
     dataIndex: 'certificateNo',
   },
   {
-    title: '证书机构',
+    title: '是否一口价',
     align: 'center',
-    dataIndex: 'certificateOrg',
+    dataIndex: 'isFixedPrice_dictText',
   },
   {
-    title: '字印',
+    title: '备注',
     align: 'center',
-    dataIndex: 'seal',
-  },
-  {
-    title: '查询地址',
-    align: 'center',
-    dataIndex: 'queryUrl',
-  },
-  {
-    title: '序号',
-    align: 'center',
-    dataIndex: 'sequenceNo',
-  },
-  /*{
-    title: '原价',
-    align: 'center',
-    dataIndex: 'originalPrice',
-  },
-  {
-    title: '参考售价',
-    align: 'center',
-    dataIndex: 'referenceSellingPrice',
-  },*/
-  {
-    title: '状态（合/残）',
-    align: 'center',
-    dataIndex: 'status_dictText',
+    dataIndex: 'remarks',
   },
   {
     title: '库存状态',
     align: 'center',
     dataIndex: 'inboundStatus_dictText',
   },
-  /*{
-    title: '销售状态',
-    align: 'center',
-    dataIndex: 'salesStatus_dictText',
-  },*/
-  {
-    title: '备注',
-    align: 'center',
-    dataIndex: 'remarks',
-  },
-  /*{
-    title: '库码ID',
-    align: 'center',
-    dataIndex: 'kmId',
-  },*/
+
   {
     title: '库位号',
     align: 'center',
@@ -146,18 +107,12 @@ export const superQuerySchema = {
   goldWeight: { title: '金重', order: 9, view: 'number', type: 'number' },
   totalWeight: { title: '总重', order: 10, view: 'number', type: 'number' },
   certificateNo: { title: '证书编号', order: 11, view: 'text', type: 'string' },
-  certificateOrg: { title: '证书机构', order: 12, view: 'text', type: 'string' },
-  seal: { title: '字印', order: 13, view: 'text', type: 'string' },
-  queryUrl: { title: '查询地址', order: 14, view: 'text', type: 'string' },
-  sequenceNo: { title: '序号', order: 15, view: 'number', type: 'number' },
-  originalPrice: { title: '原价', order: 16, view: 'number', type: 'number' },
-  referenceSellingPrice: { title: '参考售价', order: 17, view: 'number', type: 'number' },
-  status: {
-    title: '状态（合/残）',
-    order: 18,
-    view: 'radio',
+  isFixedPrice: {
+    title: '是否一口价',
+    order: 17,
+    view: 'list',
     type: 'string',
-    dictCode: 'jxc_pandian_status',
+    dictCode: 'jxc_isFixedPrice_dict',
   },
   inboundStatus: {
     title: '库存状态',

@@ -15,16 +15,6 @@ export const columns: BasicColumn[] = [
     align: 'center',
     dataIndex: 'itemName',
   },
-  // {
-  //   title: '金工费',
-  //   align: 'center',
-  //   dataIndex: 'goldProcessFee',
-  // },
-  // {
-  //   title: '银工费',
-  //   align: 'center',
-  //   dataIndex: 'sliverProcessFee',
-  // },
 ];
 
 //子表列表数据
@@ -38,11 +28,6 @@ export const tBGoodsForFHColumns: BasicColumn[] = [
     title: '货号',
     align: 'center',
     dataIndex: 'productNo',
-  },
-  {
-    title: '客户款号',
-    align: 'center',
-    dataIndex: 'customerStyleNo',
   },
   {
     title: '客胚名称',
@@ -70,44 +55,29 @@ export const tBGoodsForFHColumns: BasicColumn[] = [
     dataIndex: 'certificateNo',
   },
   {
-    title: '证书机构',
+    title: '成本',
     align: 'center',
-    dataIndex: 'certificateOrg',
+    dataIndex: 'goodsCost',
   },
   {
-    title: '字印',
-    align: 'center',
-    dataIndex: 'seal',
-  },
-  {
-    title: '查询地址',
-    align: 'center',
-    dataIndex: 'queryUrl',
-  },
-  {
-    title: '序号',
-    align: 'center',
-    dataIndex: 'sequenceNo',
-  },
-  {
-    title: '原价',
-    align: 'center',
-    dataIndex: 'originalPrice',
-  },
-  {
-    title: '参考售价(经销商)',
+    title: '参考售价(经销)',
     align: 'center',
     dataIndex: 'distributorReferenceSellingPrice',
   },
   {
-    title: '参考售价(代理商)',
+    title: '参考零售价',
     align: 'center',
-    dataIndex: 'agentReferenceSellingPrice',
+    dataIndex: 'retailReferenceSellingPrice',
   },
   {
-    title: '状态（合/残）',
+    title: '参考一口价',
     align: 'center',
-    dataIndex: 'status_dictText',
+    dataIndex: 'retailFixedReferenceSellingPrice',
+  },
+  {
+    title: '是否一口价',
+    align: 'center',
+    dataIndex: 'isFixedPrice_dictText',
   },
   {
     title: '库存状态',
@@ -130,6 +100,4 @@ export const tBGoodsForFHColumns: BasicColumn[] = [
 export const superQuerySchema = {
   newStyleNo: { title: '款号', order: 0, view: 'text', type: 'string' },
   itemName: { title: '款式名称', order: 1, view: 'text', type: 'string' },
-  // goldProcessFee: { title: '金工费', order: 3, view: 'number', type: 'number' },
-  // sliverProcessFee: { title: '银工费', order: 4, view: 'number', type: 'number' },
 };

@@ -3,7 +3,35 @@
     <!--查询区域-->
     <div class="jeecg-basic-table-form-container">
       <a-form ref="formRef" @keyup.enter.native="searchQuery" :model="queryParam" :label-col="labelCol" :wrapper-col="wrapperCol">
-        <a-row :gutter="24"> </a-row>
+        <a-row :gutter="24">
+          <a-col :lg="3" :xl="6">
+            <a-form-item name="customerName">
+              <template #label><span title="客户名称">客户名称</span></template>
+              <JInput v-model:value="queryParam.customerName" />
+            </a-form-item>
+          </a-col>
+          <a-col :lg="3" :xl="6">
+            <a-form-item name="phone">
+              <template #label><span title="手机号">手机号</span></template>
+              <JInput v-model:value="queryParam.phone" />
+            </a-form-item>
+          </a-col>
+          <a-col :lg="3" :xl="6">
+            <a-form-item name="birthday">
+              <template #label><span title="出生日期">出生日期</span></template>
+              <a-range-picker value-format="YYYY-MM-DD" v-model:value="queryParam.birthday" class="query-group-cust" />
+            </a-form-item>
+          </a-col>
+
+          <a-col :xl="4" :lg="3" :md="8" :sm="24">
+            <span style="float: left; overflow: hidden" class="table-page-search-submitButtons">
+              <a-col :lg="6">
+                <a-button type="primary" preIcon="ant-design:search-outlined" @click="searchQuery">查询</a-button>
+                <a-button type="primary" preIcon="ant-design:reload-outlined" @click="searchReset" style="margin-left: 8px">重置</a-button>
+              </a-col>
+            </span>
+          </a-col>
+        </a-row>
       </a-form>
     </div>
     <!--引用表格-->
@@ -14,9 +42,9 @@
         <a-button type="primary" v-auth="'jxcmanage:t_b_customer:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls">
           导出
         </a-button>
-        <j-upload-button type="primary" v-auth="'jxcmanage:t_b_customer:importExcel'" preIcon="ant-design:import-outlined" @click="onImportXls"
-          >导入
-        </j-upload-button>
+        <!--        <j-upload-button type="primary" v-auth="'jxcmanage:t_b_customer:importExcel'" preIcon="ant-design:import-outlined" @click="onImportXls"-->
+        <!--          >导入-->
+        <!--        </j-upload-button>-->
         <a-dropdown v-if="selectedRowKeys.length > 0">
           <template #overlay>
             <a-menu>
@@ -32,13 +60,13 @@
           </a-button>
         </a-dropdown>
         <!-- 高级查询 -->
-        <super-query :config="superQueryConfig" @search="handleSuperQuery" />
+<!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
       </template>
       <!--操作栏-->
       <template #action="{ record }">
         <TableAction :actions="getTableAction(record)" :dropDownActions="getDropDownAction(record)" />
       </template>
-      <template v-slot:bodyCell="{ column, record, index, text }"> </template>
+      <template v-slot:bodyCell="{ column, record, index, text }"></template>
     </BasicTable>
     <!-- 表单区域 -->
     <TBCustomerModal ref="registerModal" @success="handleSuccess"></TBCustomerModal>
@@ -50,10 +78,12 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useListPage } from '/@/hooks/system/useListPage';
   import { columns, superQuerySchema } from './TBCustomer.data';
-  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl } from './TBCustomer.api';
+  import { list, deleteOne, batchDelete, /*getImportUrl,*/ getExportUrl } from './TBCustomer.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import TBCustomerModal from './components/TBCustomerModal.vue';
   import { useUserStore } from '/@/store/modules/user';
+  import JInput from '/@/components/Form/src/jeecg/components/JInput.vue';
+  import { cloneDeep } from 'lodash-es';
 
   const formRef = ref();
   const queryParam = reactive<any>({});
@@ -73,7 +103,8 @@
         fixed: 'right',
       },
       beforeFetch: async (params) => {
-        return Object.assign(params, queryParam);
+        let rangerQuery = await setRangeQuery();
+        return Object.assign(params, rangerQuery);
       },
     },
     exportConfig: {
@@ -81,10 +112,10 @@
       url: getExportUrl,
       params: queryParam,
     },
-    importConfig: {
-      url: getImportUrl,
-      success: handleSuccess,
-    },
+    /*importConfig: {
+  url: getImportUrl,
+  success: handleSuccess,
+},*/
   });
   const [registerTable, { reload, collapseAll, updateTableDataRecord, findTableDataRecord, getDataSource }, { rowSelection, selectedRowKeys }] =
     tableContext;
@@ -206,6 +237,30 @@
     selectedRowKeys.value = [];
     //刷新数据
     reload();
+  }
+
+  let rangeField = 'birthday,';
+
+  /**
+   * 设置范围查询条件
+   */
+  async function setRangeQuery() {
+    let queryParamClone = cloneDeep(queryParam);
+    if (rangeField) {
+      let fieldsValue = rangeField.split(',');
+      fieldsValue.forEach((item) => {
+        if (queryParamClone[item]) {
+          let range = queryParamClone[item];
+          queryParamClone[item + '_begin'] = range[0];
+          queryParamClone[item + '_end'] = range[1];
+          delete queryParamClone[item];
+        } else {
+          queryParamClone[item + '_begin'] = '';
+          queryParamClone[item + '_end'] = '';
+        }
+      });
+    }
+    return queryParamClone;
   }
 </script>
 

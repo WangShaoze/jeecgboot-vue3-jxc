@@ -16,12 +16,6 @@
               <JInput v-model:value="queryParam.productNo" />
             </a-form-item>
           </a-col>
-          <a-col :lg="7">
-            <a-form-item name="status">
-              <template #label><span title="状态（合/残）">状态（合/残）</span></template>
-              <j-select-multiple placeholder="请选择状态（合/残）" v-model:value="queryParam.status" dictCode="jxc_pandian_status" allow-clear />
-            </a-form-item>
-          </a-col>
           <a-col :lg="4">
             <a-form-item name="kmValue">
               <template #label><span title="库位号">库位号</span></template>
@@ -78,10 +72,6 @@
     <BasicTable @register="registerTable" :rowSelection="rowSelection">
       <!--插槽:table标题-->
       <template #tableTitle>
-        <!--        <a-button type="primary" v-auth="'jxcmanage:t_b_goods:add'" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增 </a-button>-->
-        <!--        <a-button type="primary" v-auth="'jxcmanage:t_b_goods:exportPandDianXls'" preIcon="ant-design:export-outlined" @click="onExportXlsx">-->
-        <!--          导出-->
-        <!--        </a-button>-->
         <j-upload-button type="primary" v-auth="'jxcmanage:t_b_goods:importPandianExcel'" preIcon="ant-design:import-outlined" @click="onImportXls"
           >导入
         </j-upload-button>
@@ -89,10 +79,6 @@
         <a-dropdown v-if="selectedRowKeys.length > 0">
           <template #overlay>
             <a-menu>
-              <a-menu-item key="1" @click="batchHandleUpdateQueryAddress">
-                <Icon icon="ant-design:sync-outlined"></Icon>
-                溯源码更新
-              </a-menu-item>
               <a-menu-item key="2" @click="batchHandleSelectKm">
                 <Icon icon="ant-design:inbox-outlined"></Icon>
                 批量入库
@@ -109,11 +95,6 @@
                 <Icon icon="ant-design:delete-outlined"></Icon>
                 删除
               </a-menu-item>
-
-              <!--              <a-menu-item key="3" @click="batchHandleInbound">-->
-              <!--                <Icon icon="ant-design:delete-outlined"></Icon>-->
-              <!--                批量入库-->
-              <!--              </a-menu-item>-->
             </a-menu>
           </template>
           <a-button v-auth="'jxcmanage:t_b_goods:deleteBatch'"
@@ -121,8 +102,6 @@
             <Icon icon="mdi:chevron-down"></Icon>
           </a-button>
         </a-dropdown>
-        <!-- 高级查询 -->
-        <!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
       </template>
       <!--操作栏-->
       <template #action="{ record }">
@@ -167,7 +146,6 @@
     batchInboundApi,
     selectKmApi,
     batchSelectKmApi,
-    batchUpdateQueryAddressApi,
     updateOriginPriceApi,
     batchHandleExportApi,
   } from './TBGoods.api';
@@ -378,16 +356,6 @@ console.log(kmFormData.kmId);*/
     let ids = selectedRowKeys.value.join(',');
     console.log(ids);
     await batchInboundApi({
-      ids: ids,
-    });
-  }
-
-  /**
-   * 溯源码更新
-   */
-  async function batchHandleUpdateQueryAddress() {
-    let ids = selectedRowKeys.value.join(',');
-    await batchUpdateQueryAddressApi({
       ids: ids,
     });
   }
