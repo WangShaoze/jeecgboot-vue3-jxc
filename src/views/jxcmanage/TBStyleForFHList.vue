@@ -41,9 +41,9 @@
         <!--插槽:table标题-->
         <template #tableTitle>
           <!--          <a-button type="primary" v-auth="'jxcmanage:t_b_style:add'" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增 </a-button>-->
-          <a-button type="primary" v-auth="'jxcmanage:t_b_style:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls">
-            导出
-          </a-button>
+<!--          <a-button type="primary" v-auth="'jxcmanage:t_b_style:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls">-->
+<!--            导出-->
+<!--          </a-button>-->
           <a-button type="primary" preIcon="ant-design:heat-map-outlined" @click="showSecurityCode"> 检验安全码 </a-button>
           <a-button type="primary" preIcon="ant-design:search" @click="showSearchItemNumberTrigger"> 查询款号 </a-button>
           <a-button type="primary" preIcon="ant-design:pic-right-outlined" @click="batchOutbound"> 批量出库 </a-button>
@@ -193,7 +193,7 @@
   import { useListPage } from '/@/hooks/system/useListPage';
   import TBStyleForFHModal from './components/TBStyleForFHModal.vue';
   import { columns, superQuerySchema } from './TBStyleForFH.data';
-  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl, batchDeliverApi } from './TBStyleForFH.api';
+  import { list, deleteOne, batchDelete, getImportUrl, /*getExportUrl,*/ batchDeliverApi } from './TBStyleForFH.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import JInput from '/@/components/Form/src/jeecg/components/JInput.vue';
   import TBGoodsForFHList from './TBGoodsForFHList.vue';
@@ -359,7 +359,7 @@
   const registerModal = ref();
   const userStore = useUserStore();
   //注册table数据
-  const { prefixCls, tableContext, onExportXls, onImportXls } = useListPage({
+  const { prefixCls, tableContext, onExportXls, /*onImportXls*/ } = useListPage({
     tableProps: {
       title: '分货',
       api: list,
@@ -381,11 +381,11 @@
         pageSizeOptions: ['5', '10', '20'],
       },
     },
-    exportConfig: {
+    /*exportConfig: {
       name: '分货',
       url: getExportUrl,
       params: queryParam,
-    },
+    },*/
     importConfig: {
       url: getImportUrl,
       success: handleSuccess,

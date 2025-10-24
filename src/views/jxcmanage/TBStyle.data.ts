@@ -46,6 +46,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'retailCost',
   },
   {
+    title: '成本工费',
+    align: 'center',
+    dataIndex: 'costWorkFee',
+  },
+  {
     title: '零售一口价',
     align: 'center',
     dataIndex: 'retailFixedPrice',
@@ -67,6 +72,7 @@ export const superQuerySchema = {
   avgTotalWeight: { title: '平均总重', order: 4, view: 'number', type: 'number' },
   distributorCost: { title: '经销工费', order: 5, view: 'number', type: 'number' },
   retailCost: { title: '零售工费', order: 7, view: 'number', type: 'number' },
+  costWorkFee: { title: '成本工费', order: 7, view: 'number', type: 'number' },
   retailFixedPrice: { title: '零售一口价', order: 8, view: 'number', type: 'number' },
   isFixedPrice: {
     title: '是否一口价',

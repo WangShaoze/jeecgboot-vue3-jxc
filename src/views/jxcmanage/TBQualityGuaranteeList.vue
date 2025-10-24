@@ -133,16 +133,19 @@
         <a-button type="primary" v-auth="'jxcmanage:t_b_quality_guarantee:add'" @click="handleAdd" preIcon="ant-design:plus-outlined">
           新增
         </a-button>
-        <a-button type="primary" v-auth="'jxcmanage:t_b_quality_guarantee:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls">
+        <!--        <a-button type="primary" v-auth="'jxcmanage:t_b_quality_guarantee:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls">
+                  导出
+                </a-button>-->
+        <a-button type="primary" v-auth="'jxcmanage:t_b_quality_guarantee:QGO'" preIcon="ant-design:export-outlined" @click="exportXlsxUrl">
           导出
         </a-button>
-        <j-upload-button
-          type="primary"
-          v-auth="'jxcmanage:t_b_quality_guarantee:importExcel'"
-          preIcon="ant-design:import-outlined"
-          @click="onImportXls"
-          >导入
-        </j-upload-button>
+        <!--        <j-upload-button-->
+        <!--          type="primary"-->
+        <!--          v-auth="'jxcmanage:t_b_quality_guarantee:importExcel'"-->
+        <!--          preIcon="ant-design:import-outlined"-->
+        <!--          @click="onImportXls"-->
+        <!--          >导入-->
+        <!--        </j-upload-button>-->
         <a-dropdown v-if="selectedRowKeys.length > 0">
           <template #overlay>
             <a-menu>
@@ -158,7 +161,7 @@
           </a-button>
         </a-dropdown>
         <!-- 高级查询 -->
-<!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
+        <!--        <super-query :config="superQueryConfig" @search="handleSuperQuery" />-->
       </template>
       <!--操作栏-->
       <template #action="{ record }">
@@ -176,7 +179,7 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useListPage } from '/@/hooks/system/useListPage';
   import { columns, superQuerySchema } from './TBQualityGuarantee.data';
-  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl } from './TBQualityGuarantee.api';
+  import { list, deleteOne, batchDelete, getExportXlsxUrl /*getImportUrl,*/, getExportUrl } from './TBQualityGuarantee.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import TBQualityGuaranteeModal from './components/TBQualityGuaranteeModal.vue';
   import { useUserStore } from '/@/store/modules/user';
@@ -191,7 +194,7 @@
   const registerModal = ref();
   const userStore = useUserStore();
   //注册table数据
-  const { prefixCls, tableContext, onExportXls, onImportXls } = useListPage({
+  const { prefixCls, tableContext /*onExportXls, onImportXls*/ } = useListPage({
     tableProps: {
       title: '质保单管理',
       api: list,
@@ -206,15 +209,15 @@
         return Object.assign(params, queryParam);
       },
     },
-    exportConfig: {
-      name: '质保单管理',
-      url: getExportUrl,
-      params: queryParam,
-    },
-    importConfig: {
-      url: getImportUrl,
-      success: handleSuccess,
-    },
+    // exportConfig: {
+    //   name: '质保单管理',
+    //   url: getExportUrl,
+    //   params: queryParam,
+    // },
+    /*importConfig: {
+url: getImportUrl,
+success: handleSuccess,
+},*/
   });
   const [registerTable, { reload, collapseAll, updateTableDataRecord, findTableDataRecord, getDataSource }, { rowSelection, selectedRowKeys }] =
     tableContext;
@@ -240,6 +243,12 @@
       queryParam[k] = params[k];
     });
     searchQuery();
+  }
+
+  async function exportXlsxUrl() {
+    await getExportXlsxUrl({ qualityGuaranteeId: selectedRowKeys.value.join(',') }).then((res) => {
+      downloadFile(res); // 下载返回的连接即可
+    });
   }
 
   /**

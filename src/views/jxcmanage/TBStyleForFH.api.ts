@@ -10,7 +10,7 @@ enum Api {
   deleteOne = '/jxcmanage/tBStyleForFH/delete',
   deleteBatch = '/jxcmanage/tBStyleForFH/deleteBatch',
   importExcel = '/jxcmanage/tBStyleForFH/importExcel',
-  exportXls = '/jxcmanage/tBStyleForFH/exportXls',
+  // exportXls = '/jxcmanage/tBStyleForFH/exportXls',
   tBGoodsForFHList = '/jxcmanage/tBStyleForFH/listTBGoodsForFHByMainId',
   tBGoodsForFHSave = '/jxcmanage/tBStyleForFH/addTBGoodsForFH',
   tBGoodsForFHEdit = '/jxcmanage/tBStyleForFH/editTBGoodsForFH',
@@ -25,7 +25,7 @@ enum Api {
  * 导出api
  * @param params
  */
-export const getExportUrl = Api.exportXls;
+// export const getExportUrl = Api.exportXls;
 
 /**
  * 导入api

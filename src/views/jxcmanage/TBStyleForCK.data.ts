@@ -38,6 +38,11 @@ export const columns: BasicColumn[] = [
     dataIndex: 'retailCost',
   },
   {
+    title: '成本工费',
+    align: 'center',
+    dataIndex: 'costWorkFee',
+  },
+  {
     title: '零售一口价',
     align: 'center',
     dataIndex: 'retailFixedPrice',
@@ -96,6 +101,11 @@ export const formSchema: FormSchema[] = [
   {
     label: '零售工费',
     field: 'retailCost',
+    component: 'InputNumber',
+  },
+  {
+    label: '成本工费',
+    field: 'costWorkFee',
     component: 'InputNumber',
   },
   {
@@ -188,20 +198,26 @@ export const tBGoodsForCKColumns: BasicColumn[] = [
     align: 'center',
     dataIndex: 'distributorReferenceSellingPrice',
   },
+  // {
+  //   title: '零售单克工费',
+  //   align: 'center',
+  //   dataIndex: 'retailWorkFeeEachGram',
+  // },
+  // {
+  //   title: '参考零售价',
+  //   align: 'center',
+  //   dataIndex: 'retailReferenceSellingPrice',
+  // },
   {
-    title: '参考零售价',
+    title: '参考零售价(零售单克工费)',
     align: 'center',
-    dataIndex: 'retailReferenceSellingPrice',
+    dataIndex: 'retailSellingPriceAndWorkFeeEachGram',
+    width: 220,
   },
   {
     title: '参考一口价',
     align: 'center',
     dataIndex: 'retailFixedReferenceSellingPrice',
-  },
-  {
-    title: '是否一口价',
-    align: 'center',
-    dataIndex: 'isFixedPrice_dictText',
   },
   {
     title: '库存状态',
@@ -344,16 +360,6 @@ export const tBGoodsForCKJVxeColumns: JVxeColumn[] = [
     defaultValue: '',
   },
   {
-    title: '是否一口价',
-    key: 'isFixedPrice',
-    type: JVxeTypes.select,
-    options: [],
-    dictCode: 'isFixedPrice_dictText',
-    width: '200px',
-    placeholder: '请输入${title}',
-    defaultValue: '',
-  },
-  {
     title: '库存状态',
     key: 'inboundStatus',
     type: JVxeTypes.select,
@@ -443,13 +449,6 @@ export const superQuerySchema = {
       },
       goldCostMarketPrice: { title: '金成本大盘', order: 19, view: 'number', type: 'number' },
       sliverCostMarketPrice: { title: '银成本大盘', order: 20, view: 'number', type: 'number' },
-      isFixedPrice: {
-        title: '是否一口价',
-        order: 21,
-        view: 'list',
-        type: 'string',
-        dictCode: 'jxc_isFixedPrice_dict',
-      },
       retailFixedReferenceSellingPrice: {
         title: '参考一口价',
         order: 14,

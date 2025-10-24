@@ -71,11 +71,6 @@ export const columns: BasicColumn[] = [
     dataIndex: 'certificateNo',
   },
   {
-    title: '是否一口价',
-    align: 'center',
-    dataIndex: 'isFixedPrice_dictText',
-  },
-  {
     title: '备注',
     align: 'center',
     dataIndex: 'remarks',
@@ -107,13 +102,6 @@ export const superQuerySchema = {
   goldWeight: { title: '金重', order: 9, view: 'number', type: 'number' },
   totalWeight: { title: '总重', order: 10, view: 'number', type: 'number' },
   certificateNo: { title: '证书编号', order: 11, view: 'text', type: 'string' },
-  isFixedPrice: {
-    title: '是否一口价',
-    order: 17,
-    view: 'list',
-    type: 'string',
-    dictCode: 'jxc_isFixedPrice_dict',
-  },
   inboundStatus: {
     title: '库存状态',
     order: 19,

@@ -190,8 +190,8 @@
     paymentMethod: '',
   });
   const { createMessage } = useMessage();
-  const labelCol = ref<any>({ xs: { span: 24 }, sm: { span: 5 } });
-  const wrapperCol = ref<any>({ xs: { span: 24 }, sm: { span: 16 } });
+  const labelCol = ref<any>({ xs: { span: 30 }, sm: { span: 10 } });
+  const wrapperCol = ref<any>({ xs: { span: 30 }, sm: { span: 16 } });
   const confirmLoading = ref<boolean>(false);
   //表单验证
   const validatorRules = reactive({

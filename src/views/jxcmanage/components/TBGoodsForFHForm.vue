@@ -80,16 +80,6 @@
                 <a-input-number v-model:value="formData.retailFixedReferenceSellingPrice" placeholder="请输入参考一口价" style="width: 100%" />
               </a-form-item>
             </a-col>
-            <a-col :span="16">
-              <a-form-item label="是否一口价" id="TBStyleForm-isFixedPrice" name="isFixedPrice">
-                <j-dict-select-tag
-                  v-model:value="formData.isFixedPrice"
-                  dictCode="jxc_isFixedPrice_dict"
-                  placeholder="请选择是否一口价"
-                  allow-clear
-                />
-              </a-form-item>
-            </a-col>
             <a-col :span="12">
               <a-form-item label="库位号" v-bind="validateInfos.kmValue" id="TBGoodsForFH-kmValue" name="kmValue">
                 <j-popup
@@ -143,7 +133,6 @@
     distributorReferenceSellingPrice: undefined,
     retailReferenceSellingPrice: undefined,
     retailFixedReferenceSellingPrice: undefined,
-    isFixedPrice: '',
     inboundStatus: '',
     salesStatus: '',
     kmValue: '',
@@ -162,11 +151,6 @@
     goldWeight: [{ required: true, message: '请输入金重!' }],
     totalWeight: [{ required: true, message: '请输入总重!' }],
     certificateNo: [{ required: true, message: '请输入证书编号!' }],
-    certificateOrg: [{ required: true, message: '请输入证书机构!' }],
-    seal: [{ required: true, message: '请输入字印!' }],
-    queryUrl: [{ required: true, message: '请输入查询地址!' }],
-    sequenceNo: [{ required: true, message: '请输入序号!' }],
-    status: [{ required: true, message: '请输入状态（合/残）!' }],
   };
   const { resetFields, validate, validateInfos } = useForm(formData, validatorRules, { immediate: false });
   const props = defineProps({

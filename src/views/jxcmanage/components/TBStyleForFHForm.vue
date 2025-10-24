@@ -40,6 +40,11 @@
               </a-form-item>
             </a-col>
             <a-col :span="24">
+              <a-form-item label="成本工费" v-bind="validateInfos.costWorkFee" id="TBStyleForm-costWorkFee" name="costWorkFee">
+                <a-input-number v-model:value="formData.costWorkFee" placeholder="请输入成本工费" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+            <a-col :span="24">
               <a-form-item label="零售一口价" v-bind="validateInfos.retailFixedPrice" id="TBStyleForm-retailFixedPrice" name="retailFixedPrice">
                 <a-input-number v-model:value="formData.retailFixedPrice" placeholder="请输入零售一口价" style="width: 100%" />
               </a-form-item>
@@ -87,6 +92,7 @@
     avgTotalWeight: undefined,
     distributorCost: undefined,
     retailCost: undefined,
+    costWorkFee: undefined,
     retailFixedPrice: undefined,
     isFixedPrice: '',
   });
