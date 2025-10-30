@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <a-spin :spinning="confirmLoading">
     <JFormContainer :disabled="disabled">
       <template #detail>
@@ -60,24 +60,19 @@
               </a-form-item>
             </a-col>
 
-            <a-col :span="16">
+            <a-col :span="30">
               <a-form-item
-                label="参考零售价"
-                v-bind="retailReferenceSellingPrice"
-                id="TBGoodsForFH-retailReferenceSellingPrice"
-                name="retailReferenceSellingPrice"
+                label="参考零售价(零售单克工费)"
+                v-bind="retailSellingPriceAndWorkFeeEachGram"
+                id="TBGoodsForFH-retailSellingPriceAndWorkFeeEachGram"
+                name="retailSellingPriceAndWorkFeeEachGram"
               >
-                <a-input-number v-model:value="formData.retailReferenceSellingPrice" placeholder="请输入参考零售价" style="width: 100%" />
-              </a-form-item>
-            </a-col>
-            <a-col :span="16">
-              <a-form-item
-                label="参考一口价"
-                v-bind="retailFixedReferenceSellingPrice"
-                id="TBGoodsForFH-retailFixedReferenceSellingPrice"
-                name="retailFixedReferenceSellingPrice"
-              >
-                <a-input-number v-model:value="formData.retailFixedReferenceSellingPrice" placeholder="请输入参考一口价" style="width: 100%" />
+                <a-input-number
+                  v-model:value="formData.retailSellingPriceAndWorkFeeEachGram"
+                  disabled
+                  placeholder="请输入参考零售价(零售单克工费)"
+                  style="width: 56%"
+                />
               </a-form-item>
             </a-col>
             <a-col :span="12">
@@ -131,8 +126,7 @@
     certificateNo: '',
     goodsCost: undefined,
     distributorReferenceSellingPrice: undefined,
-    retailReferenceSellingPrice: undefined,
-    retailFixedReferenceSellingPrice: undefined,
+    retailSellingPriceAndWorkFeeEachGram: undefined,
     inboundStatus: '',
     salesStatus: '',
     kmValue: '',

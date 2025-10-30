@@ -64,11 +64,6 @@ export const tBGoodsForFHColumns: BasicColumn[] = [
     align: 'center',
     dataIndex: 'distributorReferenceSellingPrice',
   },
-  // {
-  //   title: '参考零售价',
-  //   align: 'center',
-  //   dataIndex: 'retailReferenceSellingPrice',
-  // },
   {
     title: '参考零售价(零售单克工费)',
     align: 'center',

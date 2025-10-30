@@ -20,38 +20,112 @@
               </a-form-item>
             </a-col>
             <a-col :span="24">
-              <a-form-item label="平均银重" v-bind="validateInfos.avgSilverWeight" id="TBStyleForm-avgSilverWeight" name="avgSilverWeight">
-                <a-input-number v-model:value="formData.avgSilverWeight" placeholder="请输入平均银重" style="width: 100%" />
+              <a-form-item label="金工费" v-bind="validateInfos.goldProcessFee" id="TBStyleForm-goldProcessFee" name="goldProcessFee">
+                <a-input-number v-model:value="formData.goldProcessFee" placeholder="请输入金工费" style="width: 100%" />
               </a-form-item>
             </a-col>
             <a-col :span="24">
-              <a-form-item label="平均金重" v-bind="validateInfos.avgGoldWeight" id="TBStyleForm-avgGoldWeight" name="avgGoldWeight">
-                <a-input-number v-model:value="formData.avgGoldWeight" placeholder="请输入平均金重" style="width: 100%" />
+              <a-form-item
+                label="银工费/g"
+                v-bind="validateInfos.sliverProcessFeeEachGram"
+                id="TBStyleForm-sliverProcessFeeEachGram"
+                name="sliverProcessFeeEachGram"
+              >
+                <a-input-number v-model:value="formData.sliverProcessFeeEachGram" placeholder="请输入银工费/g" style="width: 100%" />
               </a-form-item>
             </a-col>
+
             <a-col :span="24">
-              <a-form-item label="平均总重" v-bind="validateInfos.avgTotalWeight" id="TBStyleForm-avgTotalWeight" name="avgTotalWeight">
-                <a-input-number v-model:value="formData.avgTotalWeight" placeholder="请输入平均总重" style="width: 100%" />
+              <a-form-item
+                label="银工费/件"
+                v-bind="validateInfos.sliverProcessFeeEachPiece"
+                id="TBStyleForm-sliverProcessFeeEachPiece"
+                name="sliverProcessFeeEachPiece"
+              >
+                <a-input-number v-model:value="formData.sliverProcessFeeEachPiece" placeholder="请输入银工费/件" style="width: 100%" />
               </a-form-item>
             </a-col>
+
             <a-col :span="24">
-              <a-form-item label="经销工费" v-bind="validateInfos.distributorCost" id="TBStyleForm-distributorCost" name="distributorCost">
-                <a-input-number v-model:value="formData.distributorCost" placeholder="请输入经销工费" style="width: 100%" />
+              <a-form-item label="证书费" v-bind="validateInfos.certificateFee" id="TBStyleForm-certificateFee" name="certificateFee">
+                <a-input-number v-model:value="formData.certificateFee" placeholder="请输入证书费" style="width: 100%" />
               </a-form-item>
             </a-col>
+
             <a-col :span="24">
-              <a-form-item label="零售工费" v-bind="validateInfos.retailCost" id="TBStyleForm-retailCost" name="retailCost">
-                <a-input-number v-model:value="formData.retailCost" placeholder="请输入零售工费" style="width: 100%" />
+              <a-form-item
+                label="辅料费"
+                v-bind="validateInfos.auxiliaryMaterialFee"
+                id="TBStyleForm-auxiliaryMaterialFee"
+                name="auxiliaryMaterialFee"
+              >
+                <a-input-number v-model:value="formData.auxiliaryMaterialFee" placeholder="请输入辅料费" style="width: 100%" />
               </a-form-item>
             </a-col>
+
             <a-col :span="24">
-              <a-form-item label="成本工费" v-bind="validateInfos.costWorkFee" id="TBStyleForm-costWorkFee" name="costWorkFee">
-                <a-input-number v-model:value="formData.costWorkFee" placeholder="请输入成本工费" style="width: 100%" />
+              <a-form-item
+                label="成本克工费"
+                v-bind="validateInfos.costWorkFeeEachGram"
+                id="TBStyleForm-costWorkFeeEachGram"
+                name="costWorkFeeEachGram"
+              >
+                <a-input-number v-model:value="formData.costWorkFeeEachGram" placeholder="请输入成本克工费" style="width: 100%" />
               </a-form-item>
             </a-col>
+
             <a-col :span="24">
-              <a-form-item label="零售一口价" v-bind="validateInfos.retailFixedPrice" id="TBStyleForm-retailFixedPrice" name="retailFixedPrice">
-                <a-input-number v-model:value="formData.retailFixedPrice" placeholder="请输入零售一口价" style="width: 100%" />
+              <a-form-item
+                label="成本件工费"
+                v-bind="validateInfos.costWorkFeeEachPiece"
+                id="TBStyleForm-costWorkFeeEachPiece"
+                name="costWorkFeeEachPiece"
+              >
+                <a-input-number v-model:value="formData.costWorkFeeEachPiece" placeholder="请输入成本件工费" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+
+            <a-col :span="24">
+              <a-form-item
+                label="经销克工费"
+                v-bind="validateInfos.distributorWorkFeeEachGram"
+                id="TBStyleForm-distributorWorkFeeEachGram"
+                name="distributorWorkFeeEachGram"
+              >
+                <a-input-number v-model:value="formData.distributorWorkFeeEachGram" placeholder="请输入经销克工费" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+
+            <a-col :span="24">
+              <a-form-item
+                label="经销件工费"
+                v-bind="validateInfos.distributorWorkFeeEachPiece"
+                id="TBStyleForm-distributorWorkFeeEachPiece"
+                name="distributorWorkFeeEachPiece"
+              >
+                <a-input-number v-model:value="formData.distributorWorkFeeEachPiece" placeholder="请输入经销件工费" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+
+            <a-col :span="24">
+              <a-form-item
+                label="零售克工费"
+                v-bind="validateInfos.retailWorkFeeEachGram"
+                id="TBStyleForm-retailWorkFeeEachGram"
+                name="retailWorkFeeEachGram"
+              >
+                <a-input-number v-model:value="formData.retailWorkFeeEachGram" placeholder="请输入零售克工费" style="width: 100%" />
+              </a-form-item>
+            </a-col>
+
+            <a-col :span="24">
+              <a-form-item
+                label="零售件工费"
+                v-bind="validateInfos.retailWorkFeeEachPiece"
+                id="TBStyleForm-retailWorkFeeEachPiece"
+                name="retailWorkFeeEachPiece"
+              >
+                <a-input-number v-model:value="formData.retailWorkFeeEachPiece" placeholder="请输入零售件工费" style="width: 100%" />
               </a-form-item>
             </a-col>
             <a-col :span="24">
@@ -94,14 +168,17 @@
     customerStyleNo: '',
     newStyleNo: '',
     itemName: '',
-    customAccount: '',
-    avgSilverWeight: undefined,
-    avgGoldWeight: undefined,
-    avgTotalWeight: undefined,
-    distributorCost: undefined,
-    retailCost: undefined,
-    costWorkFee: undefined,
-    retailFixedPrice: undefined,
+    goldProcessFee: undefined,
+    sliverProcessFeeEachGram: undefined,
+    sliverProcessFeeEachPiece: undefined,
+    certificateFee: undefined,
+    auxiliaryMaterialFee: undefined,
+    costWorkFeeEachGram: undefined,
+    costWorkFeeEachPiece: undefined,
+    distributorWorkFeeEachGram: undefined,
+    distributorWorkFeeEachPiece: undefined,
+    retailWorkFeeEachGram: undefined,
+    retailWorkFeeEachPiece: undefined,
     isFixedPrice: '',
   });
   const { createMessage } = useMessage();
