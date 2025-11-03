@@ -12,6 +12,7 @@ enum Api {
   importExcel = '/jxcmanage/tBStyleForCK/importExcel',
   exportXls = '/jxcmanage/tBStyleForCK/exportXls',
   tBGoodsForCKList = '/jxcmanage/tBStyleForCK/queryTBGoodsForCKByMainId',
+  batchDeleteGoodsAlreadyRemoved = '/jxcmanage/tBStyleForCK/batchDeleteGoodsAlreadyRemoved',
 }
 
 /**
@@ -34,7 +35,6 @@ export const queryTBGoodsForCK = Api.tBGoodsForCKList;
  * @param params
  */
 export const list = (params) => defHttp.get({ url: Api.list, params });
-
 
 /**
  * 删除单个
@@ -96,3 +96,12 @@ export const tBGoodsForCKList = (params) =>
     },
     { isTransformResponse: false }
   );
+
+/**
+ * 批量删除已经被子仓清理的货品数据
+ * @param params
+ * @param handleSuccess
+ */
+export const batchDeleteGoodsAlreadyRemovedApi = (params) => {
+  return defHttp.post({ url: Api.batchDeleteGoodsAlreadyRemoved, params });
+};

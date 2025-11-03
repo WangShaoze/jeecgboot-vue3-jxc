@@ -25,6 +25,7 @@
         <a-button type="primary" v-auth="'jxcmanage:t_b_style:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls"> 导出 </a-button>
         <a-button type="primary" preIcon="ant-design:heat-map-outlined" @click="showSecurityCode"> 检验安全码 </a-button>
         <a-button type="primary" preIcon="ant-design:search" @click="showSearchItemNumberTrigger"> 查询款号 </a-button>
+        <a-button type="primary" preIcon="ant-design:export-outlined" @click="batchDeleteGoodsAlreadyRemoved"> 清理已经被子仓删除的货品 </a-button>
         <j-upload-button
           type="primary"
           v-if="hasPermission('user:importExcel')"
@@ -89,6 +90,29 @@
         </div>
       </div>
     </a-modal>
+    <!-- JPop 弹窗 ==》 出货导出 -->
+    <a-modal
+      v-model:visible="showGoodsAlreadyRemoveModal"
+      title="选择需要移除的货品"
+      @ok="handleOkGoodsAlreadyRemove"
+      @cancel="handleCancelGoodsAlreadyRemove"
+    >
+      <a-form-item v-bind="goodsId" id="selectGoodsAlreadyRemove" name="selectGoodsAlreadyRemoveName">
+        <j-popup
+          spliter="货品-货号列表"
+          placeholder="选择货品"
+          v-model:value="goodsAlreadyRemoveFormData.productNos"
+          code="jxc_already_removed_goods_by_zicang"
+          :fieldConfig="[
+            { source: 'id', target: 'goodsIds' },
+            { source: 'product_no', target: 'productNos' },
+          ]"
+          :multi="true"
+          :setFieldsValue="setGoodsAlreadyRemoveFieldsValue"
+          allow-clear
+        />
+      </a-form-item>
+    </a-modal>
   </div>
 </template>
 
@@ -100,13 +124,48 @@
   import TBStyleForCKModal from './components/TBStyleForCKModal.vue';
   import TBGoodsForCKSubTable from './subTables/TBGoodsForCKSubTable.vue';
   import { columns, searchFormSchema, superQuerySchema } from './TBStyleForCK.data';
-  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl } from './TBStyleForCK.api';
+  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl, batchDeleteGoodsAlreadyRemovedApi } from './TBStyleForCK.api';
   import { downloadFile } from '/@/utils/common/renderUtils';
   import { useUserStore } from '/@/store/modules/user';
   import { usePermission } from '/@/hooks/web/usePermission';
-  import { judgeSecurityCodeApi } from './TBGoods.api';
+  import { goodsOutboundExportApi, judgeSecurityCodeApi } from './TBGoods.api';
 
   import { getItemNumberList } from './SpecialFunction.api';
+  import { JPopup } from '@/components/Form';
+
+  const showGoodsAlreadyRemoveModal = ref(false);
+
+  function batchDeleteGoodsAlreadyRemoved() {
+    showGoodsAlreadyRemoveModal.value = true;
+  }
+
+  const goodsAlreadyRemoveFormData = reactive({
+    goodsIds: '',
+    productNos: '',
+  });
+
+  /**
+   *  popup组件值改变事件
+   */
+  function setGoodsAlreadyRemoveFieldsValue(map) {
+    Object.keys(map).map((key) => {
+      goodsAlreadyRemoveFormData[key] = map[key];
+    });
+  }
+
+  async function handleOkGoodsAlreadyRemove() {
+    showGoodsAlreadyRemoveModal.value = false;
+    await batchDeleteGoodsAlreadyRemovedApi({
+      goodsIds: goodsAlreadyRemoveFormData.goodsIds,
+      productNos: goodsAlreadyRemoveFormData.productNos,
+    });
+  }
+
+  function handleCancelGoodsAlreadyRemove() {
+    showGoodsAlreadyRemoveModal.value = false;
+    goodsAlreadyRemoveFormData.goodsIds = '';
+    goodsAlreadyRemoveFormData.productNos = '';
+  }
 
   const showSearchItemNumber = ref(false);
   const searchResult = ref(''); // 显示结果的文本区域内容
