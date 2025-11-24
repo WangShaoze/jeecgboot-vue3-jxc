@@ -118,7 +118,7 @@
   // 工具栏的按钮配置
   const toolbarConfig = reactive({
     // add 新增按钮；save 保存按钮；remove 删除按钮
-    btn: ['add', 'save', 'remove'],
+    //btn: ['add', 'save', 'remove'],
     // btn: ['remove'],
     // prefix 按钮前方位置显示的内容 suffix 按钮后方位置显示的内容
     slot: ['prefix', 'suffix'],

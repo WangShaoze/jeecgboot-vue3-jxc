@@ -2,15 +2,46 @@
   <Card></Card>
   <a-button class="back-btn" v-show="showBackBtn" @click="goBack">返回</a-button>
   <div ref="chartContainer" class="chartContainer"></div>
+  <div class="p-2">
+    <!--引用表格-->
+    <BasicTable @register="registerTable" :rowSelection="rowSelection"></BasicTable>
+  </div>
 </template>
 
 <script setup>
-  import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue';
+  import { ref, onMounted, onUnmounted, nextTick, computed, reactive } from 'vue';
   import * as echarts from 'echarts';
   import Card from '@/views/jxcmanage/barData/Card.vue';
   import { usePermission } from '/@/hooks/web/usePermission';
   // 引入获取下一层级数据的接口（需根据实际后端接口调整）
-  import { getAllStyleCategory, getNextLevelData } from './BarData.api';
+  import { getAllStyleCategory, getNextLevelData, goodsList } from './BarData.api';
+  import { columns } from './BarData.data';
+  import { BasicTable } from '/@/components/Table';
+  import { useListPage } from '/@/hooks/system/useListPage';
+
+  const queryParam = reactive({
+    goodIdListStr: '[]',
+  });
+
+  //注册table数据
+  const { tableContext } = useListPage({
+    tableProps: {
+      title: '货品数据展示',
+      api: goodsList,
+      columns,
+      canResize: false,
+      useSearchForm: false,
+      actionColumn: {
+        width: 120,
+        fixed: 'right',
+      },
+      beforeFetch: async (params) => {
+        return Object.assign(params, queryParam);
+      },
+    },
+  });
+
+  const [registerTable, { reload, rowSelection }] = tableContext;
 
   const { hasPermission } = usePermission();
 
@@ -196,7 +227,9 @@
     // 绑定点击事件（动态下钻）
     myChart.value.on('click', 'series', (params) => {
       const dataItem = params.data;
-      console.log('点击数据项:', dataItem);
+      console.log('点击数据项:dataItem:', dataItem);
+      queryParam['goodIdListStr'] = dataItem[5];
+      reload(); // 刷新表格
       // 只有存在子组ID时才触发下钻（dataItem[3]对应childGroupId）
       if (dataItem?.[3]) {
         goForward(dataItem[3], dataItem[4]);
@@ -233,7 +266,7 @@
   });
 
   nextTick(() => {
-    test_permission();
+    //test_permission();
   });
 </script>
 

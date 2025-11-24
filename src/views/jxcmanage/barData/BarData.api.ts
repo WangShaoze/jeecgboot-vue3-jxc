@@ -3,6 +3,7 @@ import { defHttp } from '/@/utils/http/axios';
 enum Api {
   getAllStyleCategory = '/jxcmanage/bar/api/getAllStyleCategory',
   getNextLevelData = '/jxcmanage/bar/api/getNextLevelData',
+  goodsList = '/jxcmanage/bar/api/queryPageGoodsList',
 }
 
 /**
@@ -16,3 +17,9 @@ export const getAllStyleCategory = (params) => defHttp.get({ url: Api.getAllStyl
  * @param params
  */
 export const getNextLevelData = (params) => defHttp.get({ url: Api.getNextLevelData, params });
+
+/**
+ * 货品列表接口
+ * @param params
+ */
+export const goodsList = (params) => defHttp.get({ url: Api.goodsList, params });
