@@ -9,7 +9,6 @@ enum Api {
   edit = '/jxcmanage/tBQualityGuarantee/edit',
   deleteOne = '/jxcmanage/tBQualityGuarantee/delete',
   deleteBatch = '/jxcmanage/tBQualityGuarantee/deleteBatch',
-  // importExcel = '/jxcmanage/tBQualityGuarantee/importExcel',
   getExportXlsxUrl = '/jxcmanage/tBQualityGuarantee/getExportXlsxUrl',
   exportXls = '/jxcmanage/tBQualityGuarantee/exportXls',
 }

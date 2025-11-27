@@ -45,6 +45,9 @@
       <template #tableTitle>
         <!--        <a-button type="primary" v-auth="'jxcmanage:t_b_goods:add'" @click="handleAdd" preIcon="ant-design:plus-outlined"> 新增 </a-button>-->
         <a-button type="primary" v-auth="'jxcmanage:t_b_goods:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXls"> 导出 </a-button>
+        <a-button type="primary" v-auth="'jxcmanage:t_b_goods:exportXls'" preIcon="ant-design:export-outlined" @click="onExportXlsxAll"
+          >全表导出
+        </a-button>
         <!--        <j-upload-button type="primary" v-auth="'jxcmanage:t_b_goods:importExcel'" preIcon="ant-design:import-outlined" @click="onImportXls"-->
         <!--          >导入-->
         <!--        </j-upload-button>-->
@@ -82,8 +85,8 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useListPage } from '/@/hooks/system/useListPage';
   import { columns, superQuerySchema } from './TBGoodsForQuery.data';
-  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl } from './TBGoodsForQuery.api';
-  import { downloadFile } from '/@/utils/common/renderUtils';
+  import { list, deleteOne, batchDelete, getImportUrl, getExportUrl, exportAllApi } from './TBGoodsForQuery.api';
+  import { downloadFile1 } from '/@/utils/common/renderUtils';
   import TBGoodsForQueryModal from './components/TBGoodsForQueryModal.vue';
   import { useUserStore } from '/@/store/modules/user';
   import JInput from '/@/components/Form/src/jeecg/components/JInput.vue';
@@ -205,6 +208,12 @@
         onClick: handleDetail.bind(null, record),
       },
     ];
+  }
+
+  async function onExportXlsxAll() {
+    await exportAllApi().then((res) => {
+      downloadFile1(res);
+    });
   }
 
   /**

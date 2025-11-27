@@ -11,6 +11,7 @@ enum Api {
   deleteBatch = '/jxcmanage/tBGoodsForQuery/deleteBatch',
   importExcel = '/jxcmanage/tBGoodsForQuery/importExcel',
   exportXls = '/jxcmanage/tBGoodsForQuery/exportXls',
+  exportAll = '/jxcmanage/tBGoodsForQuery/exportXlsAll',
 }
 
 /**
@@ -23,6 +24,8 @@ export const getExportUrl = Api.exportXls;
  * 导入api
  */
 export const getImportUrl = Api.importExcel;
+
+export const exportAllApi = () => defHttp.get({ url: Api.exportAll });
 
 /**
  * 列表接口

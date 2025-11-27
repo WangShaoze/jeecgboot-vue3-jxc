@@ -172,8 +172,26 @@ function downloadFile(url) {
   }
   url = getFileAccessHttpUrl(url.split(',')[0]);
   if (url) {
+    console.log('downloadFile => url: open', url);
     window.open(url);
   }
 }
 
-export { render, downloadFile };
+/**
+ * 文件下载
+ */
+function downloadFile1(url) {
+  if (!url) {
+    createMessage.warning('未知的文件');
+    return;
+  }
+  if (url.indexOf(',') > 0) {
+    url = url.substring(0, url.indexOf(','));
+  }
+  if (url) {
+    console.log(url);
+    window.open(url);
+  }
+}
+
+export { render, downloadFile, downloadFile1 };
